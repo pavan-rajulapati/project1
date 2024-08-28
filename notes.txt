@@ -1,0 +1,14 @@
+Status Code : 
+
+200 - success
+204 - empty
+302 - result found
+400 - bad request or required
+401 - unathourized
+403 - miss use
+404 - not found
+500 - internal error
+
+
+API Links : 
+

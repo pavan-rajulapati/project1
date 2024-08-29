@@ -36,22 +36,19 @@ const userAddressSchema = mongoose.Schema({
     bankDetails : {
         holderName : {
             type : String,
-            required : true,
             trim : true
         },
         bankName : {
             type : String,
-            required : true,
             trim : true
         },
         accountNumber : {
             type : String,
-            required : true,
+            reqired : true,
             trim : true
         },
         ifscCode : {
             type : String,
-            required : true,
             trim : true
         }
     }

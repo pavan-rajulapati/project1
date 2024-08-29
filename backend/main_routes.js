@@ -9,5 +9,6 @@ routes.use(require('./routes/google.login.routes'))
 routes.use(require('./routes/token.routes'))
 routes.use(require('./routes/seller.routes'))
 routes.use(require('./routes/product.routes'))
+routes.use(require('./routes/user.address.routes'))
 
 module.exports = routes

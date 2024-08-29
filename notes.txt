@@ -12,3 +12,18 @@ Status Code :
 
 API Links : 
 
+resgiter - http://localhost:7080/signup
+google register - http://localhost:7080/google-signup
+login - http://localhost:7080/login
+google login - http://localhost:7080/google-login
+seller - http://localhost:7080/seller-register
+products - http://localhost:7080/product-form
+user address - http://localhost:7080/user-address
+
+Tasks : 
+
+register - complete
+login - complete
+seller - complete
+products - complete
+

@@ -11,5 +11,7 @@ routes.use(require('./routes/seller.routes'))
 routes.use(require('./routes/product.routes'))
 routes.use(require('./routes/user.address.routes'))
 routes.use(require('./routes/user.details.routes'))
+routes.use(require('./routes/cart.routes'))
+routes.use(require('./routes/order.routes'))
 
 module.exports = routes

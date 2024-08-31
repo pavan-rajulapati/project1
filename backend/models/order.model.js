@@ -40,31 +40,9 @@ const orderSchema = new mongoose.Schema({
         default: 'pending',
     },
     shippingAddress: {
-        street: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        city: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        pincode: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        state: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        country: {
-            type: String,
-            required: true,
-            trim: true
-        },
+        type : mongoose.Schema.Types.ObjectId,
+        required : true,
+        ref : 'UserAddress'
     },
     cancellationReason: {
         type: String,

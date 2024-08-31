@@ -20,6 +20,8 @@ seller - http://localhost:7080/seller-register
 products - http://localhost:7080/product-form
 user address - http://localhost:7080/user-address
 user details -  http://localhost:7080/user-details
+cart - http://localhost:7080/cart
+order - http://localhost:7080/order
 
 Tasks : 
 

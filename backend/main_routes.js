@@ -10,5 +10,6 @@ routes.use(require('./routes/token.routes'))
 routes.use(require('./routes/seller.routes'))
 routes.use(require('./routes/product.routes'))
 routes.use(require('./routes/user.address.routes'))
+routes.use(require('./routes/user.details.routes'))
 
 module.exports = routes

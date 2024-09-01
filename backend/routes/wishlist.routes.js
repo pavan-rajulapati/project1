@@ -1,5 +1,5 @@
 const express = require('express')
-const handleWishlist = require('../controlers/wishlist.controler')
+const handleWishlist = require('../controller/wishlist.controler')
 const verifyToken = require('../middlewares/verifyToken')
 
 const routes = express.Router()

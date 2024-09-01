@@ -1,5 +1,5 @@
 const express = require('express')
-const handleReview = require('../controlers/review.controler')
+const handleReview = require('../controller/review.controler')
 const verifyToken = require('../middlewares/verifyToken')
 
 const routes = express.Router()

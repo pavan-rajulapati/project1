@@ -1,4 +1,4 @@
-const handleUserAddress = require('../controlers/user.address.controler')
+const handleUserAddress = require('../controller/user.address.controler')
 const express = require('express')
 const verifyToken = require('../middlewares/verifyToken')
 

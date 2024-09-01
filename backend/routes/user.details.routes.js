@@ -1,4 +1,4 @@
-const handleUserDetails = require('../controlers/user.details.controler')
+const handleUserDetails = require('../controller/user.details.controler')
 const express = require('express')
 const verifyToken = require('../middlewares/verifyToken')
 

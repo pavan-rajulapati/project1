@@ -13,5 +13,7 @@ routes.use(require('./routes/user.address.routes'))
 routes.use(require('./routes/user.details.routes'))
 routes.use(require('./routes/cart.routes'))
 routes.use(require('./routes/order.routes'))
+routes.use(require('./routes/review.routes'))
+routes.use(require('./routes/wishlist.routes'))
 
 module.exports = routes

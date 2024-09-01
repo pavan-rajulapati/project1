@@ -15,18 +15,16 @@ const orderSchema = new mongoose.Schema({
         productId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Product',
-            required: true,
+            required: true
         },
         quantity: {
             type: Number,
-            required: true,
-            trim: true
+            required: true
         }
     }],
     totalAmount: {
         type: Number,
-        required: true,
-        trim: true
+        required: true
     },
     paymentStatus: {
         type: String,
@@ -37,17 +35,23 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ['pending', 'processing', 'shipped', 'out for delivery', 'delivered', 'canceled'],
-        default: 'pending',
+        default: 'pending'
     },
     shippingAddress: {
-        type : mongoose.Schema.Types.ObjectId,
-        required : true,
-        ref : 'UserAddress'
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'UserAddress'
     },
     cancellationReason: {
         type: String,
         trim: true
     }
 }, { timestamps: true });
+
+orderSchema.index({
+    'products.productId': 1,
+    'products.quantity': 1,
+    totalAmount: 1
+});
 
 module.exports = mongoose.model('Order', orderSchema);

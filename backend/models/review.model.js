@@ -15,12 +15,19 @@ const reviewSchema = mongoose.Schema({
         type : String,
         trim : true
     },
-    rating : {
-        type : Number,
-        enum : [0,1,2,3,4,5],
-        default :0
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        required: true 
     }
 
 }, {timestamps : true})
+
+reviewSchema.index([
+    {productId : 1},
+    {comment : 1},
+    {rating : 1}
+])
 
 module.exports = mongoose.model('Review',reviewSchema)

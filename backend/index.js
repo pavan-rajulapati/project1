@@ -9,8 +9,8 @@ app.use(cors())
 app.use(bodyParser.json())
 dotEnv.config()
 
-const port = process.env.PORT
-const url = process.env.MONGO_URI
+const port = process.env.PORT || 8000;
+const url = process.env.MONGO_URI;
 
 // Mongo DB atlas connection 
 

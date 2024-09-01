@@ -1,7 +1,7 @@
-const Product = require('../models/product.model')
+const Product = require('../../models/product.model')
 const multer = require('multer')
-const Seller = require('../models/seller.model')
-const redisClient = require('../middlewares/redis')
+const Seller = require('../../models/seller.model')
+const redisClient = require('../../middlewares/redis')
 
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {

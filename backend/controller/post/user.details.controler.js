@@ -1,5 +1,5 @@
-const userDetails = require('../models/userDetails.model')
-const redisClient = require('../middlewares/redis')
+const userDetails = require('../../models/userDetails.model')
+const redisClient = require('../../middlewares/redis')
 
 const handleUserDetails = async(req, res)=>{
     const {firstName, lastName, gender, dateOfBirth, mobileNumber} = req.body;

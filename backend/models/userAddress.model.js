@@ -4,7 +4,8 @@ const userAddressSchema = mongoose.Schema({
     userId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',
-        required : true
+        required : true,
+        index : true
     },
     address : {
         street : {
@@ -53,5 +54,7 @@ const userAddressSchema = mongoose.Schema({
         }
     }
 }, {timestamps : true})
+
+
 
 module.exports = mongoose.model('UserAddress',userAddressSchema)

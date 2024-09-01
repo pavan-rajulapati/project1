@@ -1,5 +1,5 @@
-const Wishlist = require('../models/wishlist.model')
-const redisClient = require('../middlewares/redis')
+const Wishlist = require('../../models/wishlist.model')
+const redisClient = require('../../middlewares/redis')
 
 const handleWishlist = async(req,res)=>{
     const {productId} = req.body

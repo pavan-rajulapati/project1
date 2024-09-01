@@ -1,5 +1,5 @@
-const UserAddress = require('../models/userAddress.model');
-const redisClient = require('../middlewares/redis');
+const UserAddress = require('../../models/userAddress.model');
+const redisClient = require('../../middlewares/redis');
 
 const handleUserAddress = async (req, res) => {
     const { street, city, pincode, state, country, holderName, bankName, accountNumber, ifscCode } = req.body;

@@ -1,5 +1,5 @@
-const Review = require('../models/review.model');
-const redisClient = require('../middlewares/redis');
+const Review = require('../../models/review.model');
+const redisClient = require('../../middlewares/redis');
 
 const handleReview = async (req, res) => {
     const { productId, comment, rating } = req.body;

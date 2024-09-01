@@ -51,7 +51,8 @@ const orderSchema = new mongoose.Schema({
 orderSchema.index({
     'products.productId': 1,
     'products.quantity': 1,
-    totalAmount: 1
+    totalAmount: 1,
+    userId : 1
 });
 
 module.exports = mongoose.model('Order', orderSchema);

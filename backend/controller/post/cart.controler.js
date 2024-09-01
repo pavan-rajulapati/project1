@@ -1,6 +1,6 @@
-const Cart = require('../models/cart.model');
-const Product = require('../models/product.model');
-const redisClient = require('../middlewares/redis');
+const Cart = require('../../models/cart.model');
+const Product = require('../../models/product.model');
+const redisClient = require('../../middlewares/redis');
 
 const handleCart = async (req, res) => {
     try {

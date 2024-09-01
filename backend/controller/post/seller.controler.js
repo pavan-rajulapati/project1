@@ -1,6 +1,6 @@
-const Seller = require('../models/seller.model');
-const User = require('../models/user.model');
-const redisClient = require('../middlewares/redis')
+const Seller = require('../../models/seller.model');
+const User = require('../../models/user.model');
+const redisClient = require('../../middlewares/redis')
 
 const handleSeller = async (req, res) => {
     const { name, email, mobileNumber, street, city, pincode, state, country, holderName, bankName, accountNumber, ifscCode } = req.body;

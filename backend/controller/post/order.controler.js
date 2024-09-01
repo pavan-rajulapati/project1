@@ -1,5 +1,5 @@
-const Order = require('../models/order.model');
-const redisClient = require('../middlewares/redis');
+const Order = require('../../models/order.model');
+const redisClient = require('../../middlewares/redis');
 
 const handleOrder = async (req, res) => {
     const { sellerId, products, totalAmount, shippingAddress } = req.body;

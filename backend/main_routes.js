@@ -4,21 +4,22 @@ const routes = express.Router()
 
 // upload API routes
 
-routes.use(require('./routes/signup.routes'))
-routes.use(require('./routes/login.routes'))
-routes.use(require('./routes/google.signup.routes'))
-routes.use(require('./routes/google.login.routes'))
-routes.use(require('./routes/token.routes'))
-routes.use(require('./routes/seller.routes'))
-routes.use(require('./routes/product.routes'))
-routes.use(require('./routes/user.address.routes'))
-routes.use(require('./routes/user.details.routes'))
-routes.use(require('./routes/cart.routes'))
-routes.use(require('./routes/order.routes'))
-routes.use(require('./routes/review.routes'))
-routes.use(require('./routes/wishlist.routes'))
+routes.use(require('./routes/post/signup.routes'))
+routes.use(require('./routes/post/login.routes'))
+routes.use(require('./routes/post/google.signup.routes'))
+routes.use(require('./routes/post/google.login.routes'))
+routes.use(require('./routes/post/token.routes'))
+routes.use(require('./routes/post/seller.routes'))
+routes.use(require('./routes/post/product.routes'))
+routes.use(require('./routes/post/user.address.routes'))
+routes.use(require('./routes/post/user.details.routes'))
+routes.use(require('./routes/post/cart.routes'))
+routes.use(require('./routes/post/order.routes'))
+routes.use(require('./routes/post/review.routes'))
+routes.use(require('./routes/post/wishlist.routes'))
 
 // fetch API routes
+
 
 
 

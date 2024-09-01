@@ -1,9 +1,8 @@
-const User = require('../models/user.model')
-const redisClient = require('../middlewares/redis')
+const User = require('../../models/user.model')
+const redisClient = require('../../middlewares/redis')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const dotEnv = require('dotenv')
-const { json } = require('body-parser')
 
 
 dotEnv.config()

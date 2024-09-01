@@ -25,6 +25,7 @@ const reviewSchema = mongoose.Schema({
 }, {timestamps : true})
 
 reviewSchema.index([
+    {userId : 1},
     {productId : 1},
     {comment : 1},
     {rating : 1}

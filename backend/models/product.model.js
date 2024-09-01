@@ -50,6 +50,7 @@ const productSchema = mongoose.Schema({
 }, { timestamps: true });
 
 productSchema.index([
+    {userId : 1},
     { sellerId: 1 },                    
     { name: 1 },                        
     { category: 1 },                    

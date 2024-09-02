@@ -2,6 +2,7 @@ const User = require('../../models/user.model')
 const jwt = require('jsonwebtoken')
 const dotEnv = require('dotenv')
 const bcrypt = require('bcrypt')
+const redisClient = require('../../middlewares/redis')
 
 dotEnv.config()
 const secret_key = process.env.SECRET_KEY
@@ -32,6 +33,7 @@ const handleGoogleSignup = async(req,res)=>{
         const savedUser = await user.save()
 
         const token = await jwt.sign({userId : savedUser._id},secret_key,{expiresIn : '24h'})
+        await redisClient.setEx(`user:${savedUser._id}`,86400,JSON.stringify(savedUser))
 
         return res.status(200).json({message : 'success',authToken : token})
 

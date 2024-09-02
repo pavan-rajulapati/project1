@@ -20,6 +20,9 @@ routes.use(require('./routes/post/wishlist.routes'))
 
 // fetch API routes
 
+routes.use(require('./routes/get/user.routes'))
+routes.use(require('./routes/get/user.address.routes'))
+routes.use(require('./routes/get/user.details.routes'))
 
 
 

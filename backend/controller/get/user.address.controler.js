@@ -17,7 +17,7 @@ const handleUserAddress = async (req, res) => {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            await redisClient.setEx(`userAddress:${userId}`, 86400, JSON.stringify(userData));
+            await redisClient.setEx(`userAddress:${userId}`, 60 * 60, JSON.stringify(userData));
 
             return res.status(200).json({ message: 'success', userData });
         }

@@ -33,7 +33,7 @@ const handleUserAddress = async (req, res) => {
 
         const savedUserAddress = await userAddress.save();
 
-        await redisClient.set(`userAddress:${userId._id}`, JSON.stringify(savedUserAddress), 'EX', 3600);
+        await redisClient.setEx(`userAddress:${userId._id}`,60 * 60, JSON.stringify(savedUserAddress));
 
         return res.status(200).json({ message: 'User address saved successfully', data: savedUserAddress });
     } catch (error) {

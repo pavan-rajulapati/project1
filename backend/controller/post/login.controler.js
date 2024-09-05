@@ -25,7 +25,7 @@ const handleLogin = async(req,res)=>{
         }
 
         const token = await jwt.sign({userId : isExist._id}, secret_key, {expiresIn : '24h'})
-        await redisClient.set(`user:${isExist._id}`, JSON.stringify(isExist), 'EX', 86400);
+        await redisClient.setEx(`user:${isExist._id}`, 60 * 60,JSON.stringify(isExist));
         return res.status(200).json({message : 'success',authToken : token})
 
     } catch (error) {

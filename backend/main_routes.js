@@ -23,6 +23,8 @@ routes.use(require('./routes/post/wishlist.routes'))
 routes.use(require('./routes/get/user.routes'))
 routes.use(require('./routes/get/user.address.routes'))
 routes.use(require('./routes/get/user.details.routes'))
+routes.use(require('./routes/get/cart.routes'))
+routes.use(require('./routes/get/order.routes'))
 
 
 

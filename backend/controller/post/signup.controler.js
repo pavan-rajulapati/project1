@@ -33,7 +33,7 @@ const handleSignup = async(req,res)=>{
 
         const token = await jwt.sign({userId : savedUser._id},secret_key,{expiresIn : '24h'})
 
-        await redisClient.setEx(`user:${savedUser._id}`,86400,JSON.stringify(savedUser))
+        await redisClient.setEx(`user:${savedUser._id}`,60 * 60,JSON.stringify(savedUser))
 
         return res.status(200).json({message : 'success', authToken : token})
     } catch (error) {

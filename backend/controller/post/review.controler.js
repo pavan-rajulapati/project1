@@ -19,7 +19,7 @@ const handleReview = async (req, res) => {
 
         await review.save();
 
-        await redisClient.setEx(`review:${productId}:${userId}`, 3600, JSON.stringify(review));
+        await redisClient.setEx(`review:${productId}:${userId}`, 60 * 60, JSON.stringify(review));
 
         return res.status(201).json({ message: 'Review added successfully', review });
     } catch (error) {

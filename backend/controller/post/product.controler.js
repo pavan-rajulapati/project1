@@ -47,7 +47,7 @@ const handleProduct = async (req, res) => {
                 })
                 const savedProduct = await product.save()
 
-                await redisClient.setEx(`product:${savedProduct._id}`, 36000, JSON.stringify(product))
+                await redisClient.setEx(`product:${savedProduct._id}`, 60 * 60, JSON.stringify(product))
                 return res.status(200).json({ message: 'Product saved successfully', product: savedProduct })
 
             } catch (error) {

@@ -27,7 +27,7 @@ const handleOrder = async (req, res) => {
 
         await order.save();
 
-        await redisClient.setEx(`order:${userId}`, 36000, JSON.stringify(order));
+        await redisClient.setEx(`order:${userId}`, 60 * 60, JSON.stringify(order));
 
         return res.status(200).json({ message: 'success', order });
     } catch (error) {

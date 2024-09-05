@@ -20,7 +20,7 @@ const handleWishlist = async(req,res)=>{
             productId
         })
         await wishlist.save()
-        await redisClient.setEx(`wishlist:${userId._id}`,36000,JSON.stringify(wishlist))
+        await redisClient.setEx(`wishlist:${userId._id}`,60 * 60,JSON.stringify(wishlist))
 
         return res.status(200).json({message : 'success', wishlist})
     } catch (error) {

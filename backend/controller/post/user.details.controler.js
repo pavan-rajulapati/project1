@@ -29,7 +29,7 @@ const handleUserDetails = async(req, res)=>{
         })
 
         await UserDetails.save()
-        await redisClient.set(`userDetails:${userId._id}`, JSON.stringify(UserDetails), 'EX', 3600);
+        await redisClient.setEx(`userDetails:${userId._id}`,60 * 60, JSON.stringify(UserDetails));
 
         return res.status(200).json({message : 'success', data : UserDetails})
     } catch (error) {

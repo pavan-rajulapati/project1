@@ -26,6 +26,9 @@ routes.use(require('./routes/get/user.details.routes'))
 routes.use(require('./routes/get/cart.routes'))
 routes.use(require('./routes/get/order.routes'))
 routes.use(require('./routes/get/product.category.routes'))
+routes.use(require('./routes/get/seller.routes'))
+routes.use(require('./routes/get/review.routes'))
+routes.use(require('./routes/get/wishlist.routes'))
 
 
 

@@ -22,7 +22,7 @@ const handleCategory = async (req, res) => {
         }
 
         await Promise.all([
-            redisClient.setEx(`product:category:${category}`, 60 * 60, JSON.stringify(collectionData)), // Cache for 1 hour
+            redisClient.setEx(`product:category:${category}`, 60 * 60, JSON.stringify(collectionData)), 
             res.status(200).json({ message: 'success', data: collectionData })
         ]);
 

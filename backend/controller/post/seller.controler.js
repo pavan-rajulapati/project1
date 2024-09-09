@@ -54,9 +54,9 @@ const handleSeller = async (req, res) => {
         user.isSeller = true;
         await user.save();
 
-        await redisClient.set(`seller:${user._id}`, 60 * 60, JSON.stringify(newSeller));
+        await redisClient.set(`seller:${newSeller._id}`, 60 * 60, JSON.stringify(newSeller));
 
-        return res.status(201).json({ message: 'Seller registered successfully', seller: newSeller });
+        return res.status(201).json({ message: 'Seller registered successfully', data: newSeller });
 
     } catch (error) {
         return res.status(500).json({ message: 'Internal Error', error: error.message });

@@ -17,7 +17,7 @@ const handleLogin = async(req,res)=>{
     try {
         const isExist = await User.findOne({email})
         if(!isExist){
-            return res.status(401).json({message : 'You dont have an account please register first'})
+            return res.status(401).json({ message: 'You don\'t have an account' });
         }
 
         const checkPass = await bcrypt.compare(password, isExist.password)
@@ -28,6 +28,7 @@ const handleLogin = async(req,res)=>{
         const token = await jwt.sign({userId : isExist._id}, secret_key, {expiresIn : '24h'})
         cookies(res, token, process.env.NODE_ENV)
         await redisClient.setEx(`user:${isExist._id}`, 60 * 60,JSON.stringify(isExist));
+        
         return res.status(200).json({message : 'success',authToken : token})
 
     } catch (error) {

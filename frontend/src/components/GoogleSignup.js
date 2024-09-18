@@ -12,17 +12,23 @@ const GoogleLogin = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      
-      const email = user.email;
-      const googleUid = user.uid;
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        const email = user.email;
+        const googleUid = user.uid;
+        const userName = user.displayName;
+        const providerId = user.providerData[0].providerId; 
+        const profilePic = user.photoURL;        
   
       const url = process.env.REACT_APP_BACKEND_URL;  
   
-      let response = await axios.post(`${url}/google-login`, {
+      let response = await axios.post(`${url}/google-signup`, {
         email,
-        googleUid
+        googleUid,
+        userName,
+        providerId,
+        profilePic
       });
   
       if(response.status === 200){
@@ -30,7 +36,7 @@ const GoogleLogin = () => {
       }
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 401) {
+        if (error.response.status === 409) {
           toast.error(error.response.data.message || 'Unauthorized user');
         } else if (error.response.status === 500) {
           toast.error('Internal server error');

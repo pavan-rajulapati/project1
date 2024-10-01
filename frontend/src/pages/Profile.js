@@ -1,8 +1,9 @@
 import React from 'react'
+import Loader from '../components/Loader'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div><Loader/></div>
   )
 }
 

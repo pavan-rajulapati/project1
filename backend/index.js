@@ -4,12 +4,26 @@ const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
 const  mongoose  = require('mongoose')
 const cookies = require('cookie-parser')
+const path = require('path');
+
 
 const app = express()
-app.use(cors())
 app.use(bodyParser.json())
 app.use(cookies())
 dotEnv.config()
+
+// cors for API routes
+
+app.options('*', cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    credentials: true, 
+}));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = process.env.PORT || 8000;
 const url = process.env.MONGO_URI;

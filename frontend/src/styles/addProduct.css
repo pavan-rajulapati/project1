@@ -125,6 +125,7 @@
 
     ul{
         display: flex;
+        flex-wrap: wrap;
     }
 
     li{
@@ -159,9 +160,12 @@
     padding: 10px;
     background-color: white;
     border-radius: 8px;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
 
     div{
-        margin: 10px 0px;
+        margin: 10px 20px;
     }
 }
 
@@ -208,13 +212,6 @@
     
     }
 
-    img{
-        width: 100%;
-        height: 70px;
-        margin: -7px 5px;
-        border: none;
-        border-radius: 3px;
-    }
 }
 
 .product .image-section .note{
@@ -223,6 +220,7 @@
     
     svg{
         margin-right: 3px;
+        cursor: pointer;
     }
 }
 
@@ -237,7 +235,7 @@
         width: 90%;
         height: 35px;
         margin-top: 25px;
-        background-color: rgb(57, 57, 232);
+        background-color: rgb(4, 4, 19);
         border: none;
         border-radius: 4px;
         color: white;
@@ -247,9 +245,13 @@
     }
 }
 
+/* For mobile view  */
+
 @media only screen and (max-width: 767px) {
     .product {
-        padding: 5px;
+        padding: 0px;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .product form {
@@ -274,25 +276,42 @@
             "colors";
         width: 100%;
         background-color: white;
+        padding: 0;
+        margin: 0;
+
+        div:not(.color-options){
+            margin-left: 20px;
+        }
+    }
+
+    .product form .sizes{
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
     }
 
     .product form .text{
         margin-bottom: 20px;
     }
 
+    .product form label textarea{
+        width: 90%;
+    }
+
     .product form div{
         margin: 5px 0px;
     }
 
+    /* images section styles */
+
     .product form .image-section {
         width: 100%;
-        margin: 5px;
+        margin: 0;
         padding: 10px;
         background-color: white;
         border-radius: 8px;
-    
         div {
-            margin: 10px 0px;
+            margin: 10px ;
         }   
     }
 

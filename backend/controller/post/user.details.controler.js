@@ -8,7 +8,7 @@ const handleUserDetails = async(req, res)=>{
         return res.status(400).json({message : 'Fields Required'})
     }
 
-    const userId = req.user._id;
+    const userId = req.user;
     if(!userId){
         return res.status(401).json({message : 'Token required'})
     }
@@ -29,10 +29,11 @@ const handleUserDetails = async(req, res)=>{
         })
 
         await UserDetails.save()
-        await redisClient.setEx(`userDetails:${userId._id}`,60 * 60, JSON.stringify(UserDetails));
+        await redisClient.setEx(`userDetails:${userId._id}`,60 * 60, JSON.stringify(UserDetails))
 
         return res.status(200).json({message : 'success', data : UserDetails})
     } catch (error) {
+        console.log(error)
         return res.status(500).json({message : 'Internal Error'})
     }
 }

@@ -1,29 +1,33 @@
-import React from 'react'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Signin from './pages/Signin'
-import Homepage from './pages/Homepage'
-import Cart from './pages/Cart'
-import Signup from './pages/Signup'
-import Profile from './pages/Profile'
-import Products from './pages/Products'
-import Seller from './pages/Seller'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';  
+import Store from '../src/redux/store';
+import Signin from './pages/Signin';
+import Homepage from './pages/Homepage';
+import Cart from './pages/Cart';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import Products from './pages/Products';
+import Seller from './pages/Seller';
+import Navbar from './components/Navbar';
 
 const App = () => {
   return (
-    <div>
+    <Provider store={Store}> 
       <BrowserRouter>
-      <Routes>
-          <Route path='/' element={<Homepage></Homepage>}/>
-          <Route path='/cart' element={<Cart></Cart>}/>
-          <Route path='/signin' element={<Signin></Signin>}/>
-          <Route path='/signup' element={<Signup></Signup>}/>
-          <Route path='/profile' element={<Profile></Profile>}/>
-          <Route path='/products' element={<Products></Products>}/>
-          <Route path='/seller' element={<Seller></Seller>}/>
-      </Routes>
+        <Navbar></Navbar> 
+        <Routes>
+          <Route path='/' element={<Homepage />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/signin' element={<Signin />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/products' element={<Products />} />
+          <Route path='/seller' element={<Seller />} />
+        </Routes>
       </BrowserRouter>
-    </div>
-  )
-}
+    </Provider>
+  );
+};
 
-export default App
+export default App;

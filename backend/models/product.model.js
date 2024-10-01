@@ -6,6 +6,10 @@ const productSchema = mongoose.Schema({
         ref: 'Seller',
         required: true,
     },
+    brand: {
+        type: String,
+        trim: true
+    },
     name: {
         type: String,
         required: true,
@@ -19,12 +23,10 @@ const productSchema = mongoose.Schema({
     actualPrice: {
         type: Number,
         required: true,
-        trim: true
     },
     offerPrice: {
         type: Number,
         required: true,
-        trim: true
     },
     images: {
         type: [String],
@@ -39,24 +41,25 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 1
     },
+    warranty: {
+        type: Number,
+        default: 0
+    },
     sizes: {
         type: [String],
-        trim: true
     },
     colors: {
         type: [String],
-        trim: true
     }
 }, { timestamps: true });
 
 productSchema.index([
-    {userId : 1},
     { sellerId: 1 },                    
     { name: 1 },                        
     { category: 1 },                    
     { actualPrice: 1 },                 
-    { offerPrice: 1 },                 
-    { stock: 1 },                     
+    { offerPrice: 1 },                  
+    { stock: 1 },                      
     { name: 1, category: 1 }            
 ]);
 

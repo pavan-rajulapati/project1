@@ -46,7 +46,9 @@ const Signin = () => {
     } else {
       setIsLoading(true);
       try {
-        let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, userData);
+        let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, userData,{
+          withCredentials: true
+        });
         if (response.status === 200) {
           Cookies.set('authToken', response.data.authToken)
           navigate('/');

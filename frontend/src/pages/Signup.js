@@ -49,7 +49,9 @@ const Signup = () => {
     } else {
       setIsLoading(true);
       try {
-        let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/signup`, userData);
+        let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/signup`, userData,{
+          withCredentials:true
+        });
         if (response.status === 200) {
           Cookies.set('authToken', response.data.authToken)
           navigate('/');

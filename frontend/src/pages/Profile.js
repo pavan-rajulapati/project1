@@ -1,9 +1,9 @@
 import React from 'react'
-import Loader from '../components/Loader'
+import UserAddress from '../components/UserAddress'
 
 const Profile = () => {
   return (
-    <div><Loader/></div>
+    <div><UserAddress/></div>
   )
 }
 

@@ -29,6 +29,8 @@ const GoogleLogin = () => {
         userName,
         providerId,
         profilePic
+      },{
+        withCredentials : true
       });
   
       if(response.status === 200){

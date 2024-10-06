@@ -45,7 +45,6 @@ const userAddressSchema = mongoose.Schema({
         },
         accountNumber : {
             type : String,
-            reqired : true,
             trim : true
         },
         ifscCode : {

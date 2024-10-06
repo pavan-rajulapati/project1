@@ -12,7 +12,8 @@
 }
 
 .user-details .container form{
-    border: solid 1px;
+    border: solid 1px rgb(177, 177, 177);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 18px 50px 10px;
     padding: 15px;
     border-radius: 4px;
 

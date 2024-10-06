@@ -23,6 +23,8 @@ const GoogleLogin = () => {
       let response = await axios.post(`${url}/google-login`, {
         email,
         googleUid
+      },{
+        withCredentials : true
       });
   
       if(response.status === 200){

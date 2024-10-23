@@ -4,6 +4,7 @@ import { IoMdInformationCircle } from "react-icons/io";
 import { Toaster, toast } from 'react-hot-toast';
 import { addProduct } from '../redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { IoCloudUploadSharp } from "react-icons/io5";
 import Loader from './Loader';
 
 const AddProducts = () => {
@@ -21,23 +22,33 @@ const AddProducts = () => {
         sizes: [],
         colors: [],
         warranty: '',
-        images: []
+        images: [],
+        imagePreviews: []
     });
 
+    const [previewImages, setPreviewImages] = useState(null)
+
     const handleInput = (e) => {
-        const { name, value, type, files } = e.target;
+        const { name, type, files } = e.target;
+    
         if (type === 'file') {
+            const fileArray = Array.from(files);
+            const newImagePreviews = fileArray.map(file => URL.createObjectURL(file)); 
+            
             setProductData((prevData) => ({
                 ...prevData,
-                [name]: [...files]
+                [name]: [...prevData[name], ...fileArray], // Append new images to the existing ones
+                imagePreviews: [...prevData.imagePreviews, ...newImagePreviews] // Append new previews to existing previews
             }));
         } else {
             setProductData((prevData) => ({
-                ...prevData, [name]: value
+                ...prevData,
+                [name]: e.target.value
             }));
         }
     };
-
+    
+    
     const handleCategoryChange = (e) => {
         setProductData((prevData) => ({
             ...prevData, category: e.target.value, sizes: [] 
@@ -102,7 +113,10 @@ const AddProducts = () => {
             toast.error('Offer price must be less than actual price')
         }else if(actualPrice <= 0 || offerPrice <= 0){
             toast.error('Enter a valid prices')
-        }else{
+        }else if(productData.images.length > 6){
+            toast.error('you can add max 6 images')
+        }
+        else{
         
 
             const formData = new FormData();
@@ -146,144 +160,158 @@ const AddProducts = () => {
 
     
     return (
-        <div className='product'>
+        <div className='add-product'>
             <div className='container'>
                 <div className="product-form">
                     <form onSubmit={handleSubmit}>
                         <div className="product-info">
-                            <div className="text">
-                                <p>Create a New Product</p>
-                            </div>
-
-                            {/* Input fields for product details */}
-                            <div className="product-name">
-                                <label>
-                                    Product Name
-                                    <input type="text" placeholder='SAMSUNG Galaxy F34 5G' name='name' value={productData.name} onChange={handleInput} />
-                                </label>
-                            </div>
-
-                            <div className="brand">
-                                <label>
-                                    Brand
-                                    <input type="text" placeholder='Puma, adidas, redmi' name='brand' value={productData.brand} onChange={handleInput} />
-                                </label>
-                            </div>
-
-                            <div className="description">
-                                <label>
-                                    Description
-                                    <textarea placeholder='About Product' name='description' value={productData.description} onChange={handleInput} />
-                                </label>
-                            </div>
-
-                            <div className="sale-price">
-                                <label>
-                                    Sales Price
-                                    <input type="number" placeholder='999' name='offerPrice' value={productData.offerPrice} onChange={handleInput} />
-                                </label>
-                            </div>
-
-                            <div className="actual-price">
-                                <label>
-                                    Actual Price
-                                    <input type="number" placeholder='1599' name='actualPrice' value={productData.actualPrice} onChange={handleInput} />
-                                </label>
-                            </div>
-
-                            <div className="stock">
-                                <label>
-                                    Stock
-                                    <input type="number" placeholder='10' name='stock' value={productData.stock} onChange={handleInput} />
-                                </label>
-                            </div>
-
-                            {/* Category and Size selection */}
-                            <div className="category">
-                                <label>
-                                    Select Category
-                                    <select name="category" value={productData.category} onChange={handleCategoryChange}>
-                                        <option value="null">Select Category</option>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="fashion">Fashion</option>
-                                        <option value="beauty">Beauty</option>
-                                        <option value="furniture">Furniture</option>
-                                        <option value="health">Health</option>
-                                        <option value="education">Education</option>
-                                    </select>
-                                </label>
-                            </div>
-
-                            {/* Conditionally render available sizes */}
-                            {availableSizes.length > 0 && (
-                                <div className="sizes">
-                                    <p>Select Available Sizes</p>
-                                    <ul>
-                                        {availableSizes.map(size => (
-                                            <li
-                                                key={size}
-                                                onClick={() => handleSizeSelect(size)}
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    backgroundColor: productData.sizes.includes(size) ? '#333' : 'white',
-                                                    color : productData.sizes.includes(size) ? 'white' : 'black'
-                                                }}>
-                                                {size}
-                                            </li>
-                                        ))}
-                                    </ul>
+                            <div className="header">
+                                <div className="text">
+                                    <p>Add New Product</p>
                                 </div>
-                            )}
-
-                            {/* Color selection */}
-                            <div className="colors">
-                                <p>Select Available Colors</p>
-                                <div className="color-options">
-                                    {colors.map((color, index) => (
-                                        <div
-                                            key={index}
-                                            onClick={() => handleColorSelect(color)}
-                                            style={{
-                                                backgroundColor: color,
-                                                width: '30px',
-                                                height: '30px',
-                                                margin: '5px',
-                                                display: 'inline-block',
-                                                cursor: 'pointer',
-                                                borderRadius: 50,
-                                                border: productData.colors.includes(color) ? '2px solid black' : 'none'
-                                            }}
-                                        />
-                                    ))}
+                                <div className="Btn">
+                                    <button type='reset'>Cancel</button>
+                                    <button type='submit'>Publish</button>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Image upload section */}
-                        <div className="image-section">
-                            <div className="warranty">
-                                <label>
-                                    Warranty
-                                    <input type="number" placeholder='e.g., 2' name='warranty' value={productData.warranty} onChange={handleInput} />
-                                </label>
                             </div>
 
                             <div className="images">
-                                <label>
-                                    Upload Images
-                                    <input type="file" name='images' multiple onChange={handleInput} />
-                                </label>
+                                <div className="image-input">
+                                    <label>
+                                        <span><IoCloudUploadSharp /></span>
+                                        <input type="file" name='images' accept="image/*" multiple onChange={handleInput} hidden/>
+                                    </label>
+                                </div>
+                                <div className="image-preview">
+                                    {productData.imagePreviews.map((image, index) => (
+                                        <img key={index} src={image} alt={`Preview ${index}`} className="preview-image" />
+                                    ))}
+                                </div>
                             </div>
 
-                            <div className="note">
-                                <span><IoMdInformationCircle /></span>
-                                <p>Before adding images, please watch this video</p>
+                            {/* Input fields for product details */}
+                            <div className="product-details">
+                                <div className="product-name">
+                                    <label>
+                                        Product Name
+                                        <input type="text" placeholder='SAMSUNG Galaxy F34 5G' name='name' value={productData.name} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                <div className="brand">
+                                    <label>
+                                        Brand
+                                        <input type="text" placeholder='Puma, adidas, redmi' name='brand' value={productData.brand} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                <div className="description">
+                                    <label>
+                                        Description
+                                        <textarea placeholder='About Product' name='description' value={productData.description} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                <div className="sale-price">
+                                    <label>
+                                        Sales Price
+                                        <input type="number" placeholder='999' name='offerPrice' value={productData.offerPrice} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                <div className="actual-price">
+                                    <label>
+                                        Actual Price
+                                        <input type="number" placeholder='1599' name='actualPrice' value={productData.actualPrice} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                <div className="stock">
+                                    <label>
+                                        Stock
+                                        <input type="number" placeholder='10' name='stock' value={productData.stock} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                {/* Category and Size selection */}
+                                <div className="category">
+                                    <label>
+                                        Select Category
+                                        <select name="category" value={productData.category} onChange={handleCategoryChange}>
+                                            <option value="null">Select Category</option>
+                                            <option value="electronics">Electronics</option>
+                                            <option value="fashion">Fashion</option>
+                                            <option value="beauty">Beauty</option>
+                                            <option value="furniture">Furniture</option>
+                                            <option value="health">Health</option>
+                                            <option value="education">Education</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                {/* Conditionally render available sizes */}
+                                
+
+                                {/* Color selection */}
+                                <div className="colors">
+                                    <p>Select Available Colors</p>
+                                    <div className="color-options">
+                                        {colors.map((color, index) => (
+                                            <div
+                                                key={index}
+                                                onClick={() => handleColorSelect(color)}
+                                                style={{
+                                                    backgroundColor: color,
+                                                    width: '25px',
+                                                    height: '25px',
+                                                    margin: '5px',
+                                                    display: 'inline-block',
+                                                    cursor: 'pointer',
+                                                    borderRadius: 50,
+                                                    border: productData.colors.includes(color) ? '2px solid green' : 'none' 
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {availableSizes.length > 0 && (
+                                    <div className="sizes">
+                                        <p>Select Available Sizes</p>
+                                        <ul>
+                                            {availableSizes.map(size => (
+                                                <li
+                                                    key={size}
+                                                    onClick={() => handleSizeSelect(size)}
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        backgroundColor: productData.sizes.includes(size) ? '#333' : 'transparent',
+                                                        color : productData.sizes.includes(size) ? 'white' : 'white'
+                                                    }}>
+                                                    {size}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                <div className="warranty">
+                                    <label>
+                                        Warranty
+                                        <input type="number" placeholder='e.g., 2' name='warranty' value={productData.warranty} onChange={handleInput} />
+                                    </label>
+                                </div>
+
+                                    <div className="note">
+                                        <span><IoMdInformationCircle /></span>
+                                        <p>Before adding images, please watch this video</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="Btn">
-                                <button type='submit'>Publish</button>
-                            </div>
-                        </div>
+                            {/* Image upload section */}
+
+                                
                     </form>
                 </div>
             </div>

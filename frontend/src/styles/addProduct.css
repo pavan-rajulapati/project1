@@ -1,325 +1,219 @@
-.product{
+.add-product{
     width: 100%;
-    height: 100vh;
-    background-color: aliceblue;
-    padding: 20px;
-    overflow-y: scroll;
-}
-
-.product form{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-}
-
-.product .container{
-    padding: 0;
-}
-
-.product form .product-info{
-    display: grid;
-    grid-template-areas: 
-        "text text"
-        "product-name brand"
-        "description description"
-        "sale-price actual-price"
-        "stock category"
-        "sizes sizes"
-        "colors colors"
-    ;
-
-    margin: 5px;
-    width: 70%; 
-    padding: 10px;
-    background-color: white;
+    height: auto;
+    padding:5px 10px;
+    margin: 0;
+    background-color: rgb(8, 8, 50);
+    color: whitesmoke;
     border-radius: 8px;
 }
 
-.product form label{
+.add-product .container{
+    width: 100%;
+}
+
+.add-product .product-form{
+    width: 100%;
+}
+
+.add-product form{
+    width: 100%;
+}
+
+.add-product .product-info{
+    width: 100%;
+    display: grid;
+}
+
+.add-product .header{
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 24px;
+    border: none;
+    background-color: rgba(5, 5, 50);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border-bottom:solid 1px rgb(53, 53, 53);
 }
 
-.product form label input{
-    margin-top: 10px;
-    width: 90%;
-    height: 35px;
-    padding: 0px 5px;
-    border: solid 1px;
-    border-radius: 4px;
-    outline: none;
-    color: black;
-    font-weight: bold;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.product form label textarea{
-    margin-top: 10px;
-    width: 95%;
-    padding: 2px 5px;
-    height: 90px;
-    outline: none;
-    border: solid 1px;
-    border-radius: 4px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: bold;
-    resize: none;
-}
-
-.product form .text{
-    grid-area: text;
+.add-product .header .text p{
     font-size: 1.5rem;
     font-weight: bold;
 }
 
-.product form .product-name{
+.add-product .header .Btn button{
+    margin: 0px 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.add-product .header .Btn button:first-child{
+    border: solid 1px;
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+}
+
+.add-product .header .Btn button:last-child{
+    border: none;
+    padding: 7px 10px;
+    border-radius: 4px;
+    background-color: #4285f4;
+    color: rgb(255, 255, 255); 
+}
+
+.add-product .container .images{
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: solid 1px rgb(53, 53, 53);
+    padding-bottom: 10px;
+    display: flex;
+    overflow: hidden;
+}
+
+.add-product .container .images .image-input{
+    width: 15%;
+    height: 100px;
+    border: solid 1px white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    input{
+        padding: 100px;
+    }
+
+    label{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    svg{
+        font-size: 35px;
+        color: white;
+    }
+
+}
+
+.add-product .container .images .image-preview{
+    width: 85%;
+    margin-left: 20px;
+    display: flex;
+    overflow-x: scroll;
+
+    img{
+        width: 150px;
+        height: 100px;
+        border-radius: 4px;
+        margin: 0px 10px;
+    }
+}
+
+.add-product .container .images .image-preview::-webkit-scrollbar{
+    display: none;
+}
+
+.add-product .container .product-details{
+    display: grid;
+    grid-template-areas: 
+    "product-name brand stock"
+    "description description colors"
+    "sale-price actual-price category"
+    "sizes sizes warranty";
+    gap: 20px 40px;
+}
+
+.add-product .product-details .product-name{
     grid-area: product-name;
 }
 
-.product form .brand{
+.add-product .product-details .brand{
     grid-area: brand;
 }
 
-.product form .description{
-    grid-area: description;
-}
-
-.product form .sale-price{
-    grid-area: sale-price;
-}
-
-.product form .actual-price{
-    grid-area: actual-price;
-}
-
-.product form .stock{
+.add-product .product-details .stock{
     grid-area: stock;
 }
 
-.product form .category{
-    grid-area: category;
-    width: 90%;
-
-    select{
-        margin-top: 10px;
-        height: 35px;
-        border: solid 1px;
-        border-radius: 4px;
-        outline: none;
-        cursor: pointer;
-
-        option{
-            background-color: transparent;
-            border: solid 1px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    }
-
+.add-product .product-details .description{
+    grid-area: description;
 }
 
-.product form .sizes{
+.add-product .product-details .colors{
+    grid-area: colors;
+}
+
+.add-product .product-details .sale-price{
+    grid-area: sale-price;
+}
+
+.add-product .product-details .actual-price{
+    grid-area: actual-price;
+}
+
+.add-product .product-details .category{
+    grid-area: category;
+
+    option{
+        background-color: rgb(0, 0, 0);
+    }
+}
+
+.add-product .product-details .sizes{
     grid-area: sizes;
-    display: flex;
-    flex-direction: column;
 
     ul{
         display: flex;
-        flex-wrap: wrap;
-    }
+        margin: 8px 0px;
 
-    li{
-        list-style-type: none;
-        border: solid 1px #333;
-        padding: 4px 8px;
-        cursor: pointer;
-        margin: 10px 8px;
-        border-radius: 2px;
-    }
-}
-
-.product form .colors{
-    grid-area: colors;
-
-    .color-options{
-        margin-top: 10px;
-
-        div{
+        li{
+            padding: 4px 8px;
+            margin: 0px 5px;
+            background-color: transparent;
             border: solid 1px;
-            padding: 2px;
+            border-radius: 4px;
         }
     }
 }
 
-
-/* image section code  */
-
-.product form .image-section{
-    width: 40%;
-    margin: 5px;
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    display: flex;
-    align-content: center;
-    flex-direction: column;
-
-    div{
-        margin: 10px 20px;
-    }
+.add-product .product-details .warranty{
+    grid-area: warranty;
 }
 
-.product form .image-section .images{
-    margin-top: 30px;
-    
-    input{
-        cursor: pointer;
-    }
-}
-
-.product .image-section .warranty-options{
+.add-product .product-details div label{
     display: flex;
     flex-direction: column;
 
-    .options{
-        gap: 10px;
-        display: flex;
-        cursor: pointer;
-    }
-}
-
-.product .image-section .image{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    object-fit: cover;
-    background-position: center;
-
-    div{
-        position: relative;
-
-        span{
-            position: absolute;
-            padding: 4px;
-            right: 5%;
-            background-color: white;
-            border-radius: 50%;
-            font-size: 12px;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-    
-    }
-
-}
-
-.product .image-section .note{
-    display: flex;
-    margin-top: 15px;
-    
-    svg{
-        margin-right: 3px;
-        cursor: pointer;
-    }
-}
-
-/* submit section  */
-
-.product form .Btn{
-    width: 100%;
-    margin-top: 10px;
-
-
-    button{
-        width: 90%;
-        height: 35px;
-        margin-top: 25px;
-        background-color: rgb(4, 4, 19);
-        border: none;
+    input,textarea, select{
+        width: 80%;
+        height: 30px;
+        padding: 5px;
+        border: solid 1px white;
+        background-color: transparent;
         border-radius: 4px;
         color: white;
-        letter-spacing: 1.5px;
-        cursor: pointer;
+        margin-top: 4px;
+    }
 
+    textarea{
+        height: 90px;
     }
 }
 
-/* For mobile view  */
+.add-product .note{
+    display: flex;
 
-@media only screen and (max-width: 767px) {
-    .product {
-        padding: 0px;
-        width: 100%;
-        overflow-x: hidden;
+    svg{
+        margin-right: 5px;
     }
-
-    .product form {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .product form .product-info {
-        display: grid;
-        grid-template-areas: 
-            "text"
-            "product-name"
-            "brand"
-            "description"
-            "sale-price"
-            "actual-price"
-            "stock"
-            "category"
-            "sizes"
-            "colors";
-        width: 100%;
-        background-color: white;
-        padding: 0;
-        margin: 0;
-
-        div:not(.color-options){
-            margin-left: 20px;
-        }
-    }
-
-    .product form .sizes{
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-    }
-
-    .product form .text{
-        margin-bottom: 20px;
-    }
-
-    .product form label textarea{
-        width: 90%;
-    }
-
-    .product form div{
-        margin: 5px 0px;
-    }
-
-    /* images section styles */
-
-    .product form .image-section {
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-        background-color: white;
-        border-radius: 8px;
-        div {
-            margin: 10px ;
-        }   
-    }
-
-    .product .image-section .image{
-        div{
-            margin-left: 5px;
-        }
-    }
-
 }
+
 

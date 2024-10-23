@@ -1,8 +1,9 @@
 import React from 'react'
+import SellerRegistration from '../components/SellerRegistration'
 
 const Cart = () => {
   return (
-    <div>Cart</div>
+    <div><SellerRegistration/></div>
   )
 }
 

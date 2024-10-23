@@ -1,0 +1,52 @@
+.seller-form{
+    display: flex;
+    width: 100%;
+}
+
+.seller-form .container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seller-form .container Form{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 20px;
+    
+
+    div{
+        margin: 5px 0px;
+
+        label{
+            display: flex;
+            flex-direction: column;
+        }
+
+        input{
+            width: 200px;
+            height: 30px;
+            padding: 2px;
+        }
+
+        .error-message{
+            color: red;
+        }
+
+        
+    }
+
+}
+
+.seller-form button{
+    grid-column: span 3;
+    border: none;
+    background-color: black;
+    height: 30px;
+    border-radius: 4px;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+    
+}

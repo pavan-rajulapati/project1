@@ -37,8 +37,8 @@ const AddProducts = () => {
             
             setProductData((prevData) => ({
                 ...prevData,
-                [name]: [...prevData[name], ...fileArray], // Append new images to the existing ones
-                imagePreviews: [...prevData.imagePreviews, ...newImagePreviews] // Append new previews to existing previews
+                [name]: [...prevData[name], ...fileArray], 
+                imagePreviews: [...prevData.imagePreviews, ...newImagePreviews] 
             }));
         } else {
             setProductData((prevData) => ({
@@ -141,6 +141,7 @@ const AddProducts = () => {
             }
 
             dispatch(addProduct(formData));
+            toast.success('success')
 
         }
 

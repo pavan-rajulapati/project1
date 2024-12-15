@@ -1,32 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const addProduct = (productData) => async (dispatch) => {
+export const addProduct = createAsyncThunk('product/addProduct', async (data, { rejectWithValue }) => {
     try {
-        dispatch({ type: 'POST_PRODUCT_LOADING' });
-
-        const res = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/product-form`,
-            productData,
-            {
-                withCredentials: true, 
-            }
-        );
-
-        dispatch({
-            type: 'POST_PRODUCT_SUCCESS',
-            payload: res.data
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/product-form`, data, {
+            withCredentials: true,
         });
+        return response.data;
     } catch (error) {
-        if (error.response && error.response.status === 404) {
-            dispatch({
-                type: 'POST_PRODUCT_ERROR',
-                payload: error.response.data.message
-            });
-        } else {
-            dispatch({
-                type: 'POST_PRODUCT_ERROR',
-                payload: 'An unknown error occurred'
-            });
-        }
+        return rejectWithValue(error.response.data);
     }
-};
+});

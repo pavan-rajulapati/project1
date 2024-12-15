@@ -1,20 +1,28 @@
-const initialState = {
-    loading : true,
-    userAddress : {},
-    error : null
-}
+import { createSlice } from '@reduxjs/toolkit';
+import { addUserAddress } from '../actions/userAddressAction';
 
-const userAddressReducer = (state = initialState, action)=>{
-    switch (action.type){
-        case 'POST_USERADDRESS_SUCCESS':
-            return {...state, userAddress : action.payload, loading: false, error : null}
-        case 'POST_USERADDRESS_LOADING':
-            return {...state, loading : true, error : null}
-        case 'POST_USERADDRESS_ERROR':
-            return {...state, loading : false, error : action.payload}
-        default : 
-            return state
-    }
-}
+const userAddressSlice = createSlice({
+  name: 'userAddress',
+  initialState: {
+    items: [],
+    status: 'idle',
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(addUserAddress.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addUserAddress.fulfilled, (state, action) => {
+        console.log('API Response:', action.payload);
+        state.items.push(action.payload);
+      })      
+      .addCase(addUserAddress.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
 
-export default userAddressReducer
+export default userAddressSlice.reducer;

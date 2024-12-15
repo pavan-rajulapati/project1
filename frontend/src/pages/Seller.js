@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import AddUserDetails  from '../components/AddUserDetails'
 import '../styles/seller.css'
 import SellerSidenav from '../components/SellerSidenav'
 import AddProduct from '../components/AddProducts.js'

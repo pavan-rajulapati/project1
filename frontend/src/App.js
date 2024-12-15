@@ -10,6 +10,8 @@ import Profile from './pages/Profile';
 import Products from './pages/Products';
 import Seller from './pages/Seller';
 import Navbar from './components/Navbar';
+import SellerEnterPage from './components/SellerEnterPage';
+import AddUserDetails from './components/AddUserDetails'
 
 const App = () => {
   return (
@@ -17,13 +19,15 @@ const App = () => {
       <BrowserRouter>
         <Navbar></Navbar> 
         <Routes>
-          <Route path='/' element={<Homepage />} />
+          <Route path='/' element={<Homepage />} /> 
           <Route path='/cart' element={<Cart />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/products' element={<Products />} />
           <Route path='/seller' element={<Seller />} />
+          <Route path='/seller/homepage' element={<SellerEnterPage />} />
+          <Route path='/user/details' element={<AddUserDetails />} />
         </Routes>
       </BrowserRouter>
     </Provider>

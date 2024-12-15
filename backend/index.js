@@ -2,9 +2,10 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
-const  mongoose  = require('mongoose')
+const mongoose  = require('mongoose')
 const cookies = require('cookie-parser')
 const path = require('path');
+const errorHandler = require('./middlewares/errorHandler')
 
 
 const app = express()
@@ -23,7 +24,9 @@ app.use(cors({
     credentials: true, 
 }));
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
 
 const port = process.env.PORT || 8000;
 const url = process.env.MONGO_URI;
@@ -45,6 +48,8 @@ dbConnection()
 // API routes 
 
 app.use(require('./main_routes'))
+
+app.use(errorHandler)
 
 app.listen(port,()=>{
     console.log(`Port running at ${port}`);

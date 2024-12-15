@@ -8,6 +8,21 @@ const userAddressSchema = mongoose.Schema({
         index : true
     },
     address : {
+        name : {
+            type : String ,
+            required : true,
+            trim : true
+        },
+        mobileNumber : {
+            type : Number ,
+            required : true,
+            trim : true
+        },
+        landMark : {
+            type : String ,
+            required : true,
+            trim : true
+        },
         street : {
             type : String ,
             required : true,

@@ -1,16 +1,10 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react'
+import Product from '../components/Product'
 
 const Homepage = () => {
-    const [token, setToken] = useState(null);
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/authToken`, { withCredentials: true })
-            .then((res) => setToken(res.data.token))
-            .catch(() => setToken(null));
-    }, []);
-
-    return <div>{!token ? 'no Token' : <div>{token}</div>}</div>;
-};
+  return (
+    <div><Product></Product></div>
+  )
+}
 
 export default Homepage

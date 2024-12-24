@@ -20,7 +20,7 @@ const userAddressSlice = createSlice({
       })      
       .addCase(addUserAddress.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });

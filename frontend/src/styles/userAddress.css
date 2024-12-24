@@ -12,11 +12,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc; /* Specify border color */
-  border-radius: 8px; /* Optional: rounded corners */
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 20px; /* Add padding for better spacing */
-  background-color: #fff; /* Background color for clarity */
+  padding: 20px; 
+  background-color: #fff; 
 }
 
 .userAddress form {
@@ -34,9 +34,9 @@
 }
 
 .userAddress .imageSection img {
-  width: 300px; /* Fixed width for the image */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Optional: rounded corners */
+  width: 300px; 
+  height: auto; 
+  border-radius: 10px; 
 }
 
 .userAddress .inputs {

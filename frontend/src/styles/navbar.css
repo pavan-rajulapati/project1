@@ -115,6 +115,9 @@
         a{
             color: black;
         }
+        li:hover{
+            color: blue;
+        }
 
         li{
             display: flex;

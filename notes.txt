@@ -12,16 +12,16 @@ Status Code :
 
 API Links : 
 
-resgiter - http://localhost:7080/signup
-google register - http://localhost:7080/google-signup
-login - http://localhost:7080/login
-google login - http://localhost:7080/google-login
-seller - http://localhost:7080/seller-register
-products - http://localhost:7080/product-form
-user address - http://localhost:7080/user-address
-user details -  http://localhost:7080/user-details
-cart - http://localhost:7080/cart
-order - http://localhost:7080/order
+resgiter - http://localhost:5000/signup
+google register - http://localhost:5000/google-signup
+login - http://localhost:5000/login
+google login - http://localhost:5000/google-login
+seller - http://localhost:5000/seller-register
+products - http://localhost:5000/product-form
+user address - http://localhost:5000/user-address
+user details -  http://localhost:5000/user-details
+cart - http://localhost:5000/cart
+order - http://localhost:5000/order
 
 Tasks : 
 

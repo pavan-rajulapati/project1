@@ -1,22 +1,23 @@
 const userDetails = require('../../models/userDetails.model')
 const redisClient = require('../../middlewares/redis')
+const sendResponse = require('./sendResponse')
 
 const handleUserDetails = async(req, res)=>{
     const {firstName, lastName, gender, dateOfBirth, mobileNumber} = req.body;
 
     if(!firstName || !lastName || !gender || !dateOfBirth || !mobileNumber) {
-        return res.status(400).json({message : 'Fields Required'})
+        sendResponse(res, 400,'error', 'Fields Required' || 'Unknown Error')
     }
 
-    const userId = req.user;
+    const userId = req.user?._id;
     if(!userId){
-        return res.status(401).json({message : 'Token required'})
+        sendResponse(res, 401,'error', 'Unauthorized' || 'Unknown Error')
     }
 
     try {
         const isDetailExist = await userDetails.findOne({userId})
         if(isDetailExist){
-            return res.status(302).json({message : 'Details already existed'})
+            sendResponse(res, 302,'error', 'Details Already Existed' || 'Unknown Error')
         }
 
         const UserDetails = new userDetails({
@@ -31,10 +32,10 @@ const handleUserDetails = async(req, res)=>{
         await UserDetails.save()
         await redisClient.setEx(`userDetails:${userId._id}`,60 * 60, JSON.stringify(UserDetails))
 
-        return res.status(200).json({message : 'success', data : UserDetails})
+        sendResponse(res, 200,'success')
     } catch (error) {
         console.log(error)
-        return res.status(500).json({message : 'Internal Error'})
+        sendResponse(res, 500,'error', 'Internal Error' || 'Unknown Error')
     }
 }
 

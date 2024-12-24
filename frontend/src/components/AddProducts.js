@@ -26,7 +26,6 @@ const AddProducts = () => {
         imagePreviews: []
     });
 
-    const [previewImages, setPreviewImages] = useState(null)
 
     const handleInput = (e) => {
         const { name, type, files } = e.target;
@@ -141,23 +140,51 @@ const AddProducts = () => {
             }
 
             dispatch(addProduct(formData));
-            toast.success('success')
 
+            setProductData({
+                name: '',
+                brand: '',
+                description: '',
+                actualPrice: '',
+                offerPrice: '',
+                category: '',
+                stock: '',
+                sizes: [],
+                colors: [],
+                warranty: '',
+                images: [],
+                imagePreviews: []
+            });
         }
 
     };
 
-    if(loading){
-        <div>
-            <Loader></Loader>
-        </div>
-    }
+    const handleImageRemove = (index) => {
+        setProductData((prevData) => {
+            const updatedImages = [...prevData.images];
+            const updatedPreviews = [...prevData.imagePreviews];
+            updatedImages.splice(index, 1);
+            updatedPreviews.splice(index, 1);
+            return { ...prevData, images: updatedImages, imagePreviews: updatedPreviews };
+        });
+    };
 
     useEffect(() => {
         if (error) {
-            toast.error(error);
+            toast.error(error.message || 'An error occurred');
         }
     }, [error]);
+    
+
+    if (loading) {
+        return (
+            <div>
+                <Loader />
+            </div>
+        );
+    }
+    
+    
 
     
     return (
@@ -185,9 +212,26 @@ const AddProducts = () => {
                                 </div>
                                 <div className="image-preview">
                                     {productData.imagePreviews.map((image, index) => (
-                                        <img key={index} src={image} alt={`Preview ${index}`} className="preview-image" />
+                                        <div key={index} style={{ position: 'relative' }}>
+                                            <img src={image} alt={`Preview ${index}`} className="preview-image" />
+                                            <button
+                                                onClick={() => handleImageRemove(index)}
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: '5px',
+                                                    right: '5px',
+                                                    background: 'red',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '50%',
+                                                    cursor: 'pointer'
+                                                }}>
+                                                X
+                                            </button>
+                                        </div>
                                     ))}
                                 </div>
+
                             </div>
 
                             {/* Input fields for product details */}

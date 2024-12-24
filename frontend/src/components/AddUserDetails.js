@@ -3,7 +3,7 @@ import '../styles/userDetails.css';
 import { Toaster, toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from './Loader';
-import { userDetailsAction } from '../redux/actions/userDetailsAction';
+import { addUserDetails } from '../redux/actions/userDetailsAction'
 import { useNavigate } from 'react-router-dom';
 
 const AddUserDetails = () => {
@@ -34,27 +34,22 @@ const AddUserDetails = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (!userData.firstName || !userData.lastName || !userData.gender || !userData.dateOfBirth || !userData.mobileNumber) {
             toast.error("All fields are required!");
         } else if (userData.mobileNumber.length !== 10) {
             toast.error('Enter a valid mobile number');
         } else {
-            dispatch(userDetailsAction(userData));
+            await dispatch(addUserDetails(userData));
         }
     };
 
     useEffect(() => {
-        console.log('Loading:', loading);
-        console.log('Error:', error);
-        console.log('UserDetails:', userDetails);
 
         if (!loading && !error && userDetails !== null) {
-            toast.success('User details added successfully!');
             navigate('/profile');
         }
-
         if (error) {
             toast.error(error);
         }

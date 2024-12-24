@@ -1,19 +1,29 @@
-const initialState = { userDetails: null, loading: false, error: null };
+import { createSlice } from '@reduxjs/toolkit';
+import { addUserDetails } from '../actions/userDetailsAction';
 
-const userDetailsReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'ADD_USER_DETAILS':
-            return { ...state, userDetails: action.payload, loading: false, error: null };
+const userDetailsSlice = createSlice({
+  name: 'userDetails',
+  initialState: {
+    loading: false,
+    error: null,
+    userDetails: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(addUserDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userDetails = action.payload;
+      })
+      .addCase(addUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
+});
 
-        case 'ADD_USER_DETAILS_ERROR':
-            return { ...state, error: action.payload, loading: false };
-
-        case 'ADD_USER_DETAILS_LOADING':
-            return { ...state, loading: true, error: null };
-
-        default:
-            return state;
-    }
-};
-
-export default userDetailsReducer;
+export default userDetailsSlice.reducer;

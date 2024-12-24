@@ -53,14 +53,12 @@ const productSchema = mongoose.Schema({
     }
 }, { timestamps: true });
 
-productSchema.index([
-    { sellerId: 1 },                    
-    { name: 1 },                        
-    { category: 1 },                    
-    { actualPrice: 1 },                 
-    { offerPrice: 1 },                  
-    { stock: 1 },                      
-    { name: 1, category: 1 }            
-]);
+productSchema.index({ sellerId: 1 }); 
+productSchema.index({ name: 1 }); 
+productSchema.index({ category: 1 }); 
+productSchema.index({ actualPrice: 1 }); 
+productSchema.index({ stock: 1 }); 
+productSchema.index({ name: 1, category: 1 }); 
+
 
 module.exports = mongoose.model('Product', productSchema);

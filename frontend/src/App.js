@@ -12,6 +12,7 @@ import Seller from './pages/Seller';
 import Navbar from './components/Navbar';
 import SellerEnterPage from './components/SellerEnterPage';
 import AddUserDetails from './components/AddUserDetails'
+import Product from './components/Product';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/seller' element={<Seller />} />
           <Route path='/seller/homepage' element={<SellerEnterPage />} />
           <Route path='/user/details' element={<AddUserDetails />} />
+          <Route path="/product/search" element={<Product />} />
         </Routes>
       </BrowserRouter>
     </Provider>

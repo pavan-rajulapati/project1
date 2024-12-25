@@ -131,15 +131,13 @@ const AddProducts = () => {
             productData.sizes.forEach((size) => formData.append('sizes', size));
             productData.colors.forEach((color) => formData.append('colors', color));
 
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
 
             for(let i = 0; i < productData.images.length; i++){
                 formData.append('files',productData.images[i])
             }
 
             dispatch(addProduct(formData));
+            toast.success('Product added Successfully')
 
             setProductData({
                 name: '',
@@ -218,6 +216,8 @@ const AddProducts = () => {
                                                 onClick={() => handleImageRemove(index)}
                                                 style={{
                                                     position: 'absolute',
+                                                    width:'15px',
+                                                    height:'15px',
                                                     top: '5px',
                                                     right: '5px',
                                                     background: 'red',

@@ -1,82 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetProductAction } from '../redux/actions/getProductAction';
-import { useSearchParams } from 'react-router-dom';
+import '../styles/subProduct.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { GetProductByIdAction } from '../redux/actions/getProductByIdActionr';
 import Loader from './Loader';
-import {toast, Toaster} from 'react-hot-toast'
-import '../styles/getProduct.css'
+import { toast, Toaster } from 'react-hot-toast';
 
 const Product = () => {
-    const [searchParams] = useSearchParams();
-    const query = searchParams.get('query') || '';
-    const [page, setPage] = useState(1);
+    const { loading, items } = useSelector((state) => state.getProductById);
+    const { id } = useParams();
     const dispatch = useDispatch();
-    const { loading, items, currentPage, totalPages, error } = useSelector((state) => state.searchProduct);
+    const [mainImage, setMainImage] = useState('');
 
     useEffect(() => {
         try {
-            dispatch(GetProductAction({ query, page }));
+            dispatch(GetProductByIdAction(id));
         } catch (error) {
-            toast.error(error || error.message)
-        }
-    }, [query, page, dispatch]);
-
-    const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setPage(newPage);
-        }
-    };
+            toast.error(error || error.message);
+        } 
+    }, [dispatch, id]);
 
     if (loading) {
-        return (
-            <div>
-                <Loader />
-            </div>
-        );
+        return <div>
+            <Loader />
+        </div>;
+    }
+
+    if (!items) {
+        return <div>No product found</div>;
     }
 
     return (
-        <div>
-            {!loading && !error && (
-                <div className='Get-Product'>
-                    <div className='container'>
-                        <div className="items-container">
-                            {items.length ? (
-                                items.map((item) => (
-                                    <div key={item._id} className='item'>
-                                        <div className="image-section">
-                                            {item.images.map((image, index) => (
-                                                <img key={index} src={`${process.env.REACT_APP_BACKEND_URL}/${image}`} alt={`Product ${index + 1}`} />
-                                            ))}
+        <div className="Product-container">
+            <div className="container">
+                <div className="products">
+                    <div className="product">
+                        <div className="image-section">
+                            <div className="image-preview">
+                                {items.images && items.images.length > 0 ? (
+                                    items.images.map((image, index) => (
+                                        <div className="image-preview-item" key={index}>
+                                            <img
+                                                key={index}
+                                                src={`${process.env.REACT_APP_BACKEND_URL}/${image}`} // Replace backslashes with forward slashes
+                                                alt={`Preview ${index + 1}`}
+                                                className="preview-image"
+                                                onClick={() => setMainImage(image)}
+                                            />
                                         </div>
-                                        <h3>$ : {item.offerPrice}</h3>
-                                        <h4>{item.name}</h4>
-                                        <p>{item.description}</p>
-                                    </div>
-                                ))
-                            ) : (
-                            <p>No products found</p>
-                            )}
+                                    ))
+                                ) : (
+                                    <p>No images available</p>
+                                )}
+                            </div>
+                            <div className="main-image">
+                                <div className="main-image-item">
+                                    <img
+                                        src={mainImage ? `${process.env.REACT_APP_BACKEND_URL}/${mainImage}` : `${process.env.REACT_APP_BACKEND_URL}/${items.images[0]}`} // Replace backslashes with forward slashes
+                                        alt="main-image"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="pagination">
-                            <button
-                                onClick={() => handlePageChange(page - 1)}
-                                disabled={page === 1}
-                            >
-                                Previous
-                            </button>
-                            <span>Page {currentPage} of {totalPages}</span>
-                            <button
-                                onClick={() => handlePageChange(page + 1)}
-                                disabled={page === totalPages}
-                            >
-                                Next
-                            </button>
+                        <div className="information">
+                            <h1>{items.name}</h1>
+                            <p>{items.description}</p>
+                            <p>Category: {items.category}</p>
+                            <p>Stock: {items.stock}</p>
+                            <p>Price: ₹{items.offerPrice} <del>₹{items.actualPrice}</del></p>
+                            <p>Colors: {items.colors}</p>
+                            <p>Sizes: {items.sizes}</p>
+                            <p>Warranty: {items.warranty} months</p>
                         </div>
-                        <Toaster></Toaster>
                     </div>
                 </div>
-            )}
+            </div>
+            <Toaster />
         </div>
     );
 };

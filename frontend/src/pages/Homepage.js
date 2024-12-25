@@ -3,7 +3,9 @@ import Product from '../components/Product'
 
 const Homepage = () => {
   return (
-    <div><Product></Product></div>
+    <div>
+		<h2><Product></Product></h2>
+    </div>
   )
 }
 

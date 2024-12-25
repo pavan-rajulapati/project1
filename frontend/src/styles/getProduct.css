@@ -24,10 +24,11 @@
 }
 
 .Get-Product .item .image-section {
-    width: 250px; 
-    height: 150px; 
+    width: 200px; 
+    height: 100px; 
     overflow: hidden;
     position: relative;
+    margin-bottom: 5px;
 
     img {
         width: 100%;
@@ -51,5 +52,9 @@
         color: whitesmoke;
         border: none;
         border-radius: 4px;
+    }
+
+    .disable{
+        cursor: not-allowed;
     }
 }

@@ -47,6 +47,10 @@ dbConnection()
 
 // API routes 
 
+app.get('/', (req, res) => {
+    res.send('This Message from backend');
+});
+
 app.use(require('./main_routes'))
 
 app.use(errorHandler)

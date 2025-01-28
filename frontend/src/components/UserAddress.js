@@ -3,7 +3,7 @@ import '../styles/userAddress.css';
 import { toast, Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
-import { addUserAddress } from '../redux/actions/userAddressAction';
+import { addUserAddress } from '../redux/actions/userAddress.action';
 
 const UserAddress = () => {
 	const dispatch = useDispatch();

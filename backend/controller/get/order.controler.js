@@ -4,7 +4,7 @@ const redisClient = require('../../middlewares/redis');
 const handleOrder = async (req, res) => {
     const userId = req.user?._id;
     if (!userId) {
-        return res.status(400).json({ message: 'Token Required' });
+        return res.status(400).json({ message: 'Token Required' })
     }
 
     try {

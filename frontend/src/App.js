@@ -14,12 +14,16 @@ import SellerEnterPage from './components/SellerEnterPage';
 import AddUserDetails from './components/AddUserDetails'
 import GetProduct from './components/GetProduct';
 import Product from './components/Product';
+import Review from './components/Review'
+import SubNav from './components/SubNav';
+import CategoryPage from './components/CategoryProduct';
 
 const App = () => {
   return (
     <Provider store={Store}> 
 		<BrowserRouter>
 				<Navbar></Navbar> 
+				<SubNav></SubNav>
 				<Routes>
 					<Route path='/' element={<Homepage />} /> 
 					<Route path='/cart' element={<Cart />} />
@@ -32,6 +36,8 @@ const App = () => {
 					<Route path='/user/details' element={<AddUserDetails />} />
 					<Route path="/product/search" element={<GetProduct />} />
 					<Route path="/product/:id" element={<Product />} />
+					<Route path="/review" element={<Review />} />
+					<Route path="/category/:category" element={<CategoryPage />} />
 				</Routes>
 		</BrowserRouter>
     </Provider>

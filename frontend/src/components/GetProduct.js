@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetProductAction } from '../redux/actions/getProductAction';
+import { GetProductAction } from '../redux/actions/getProduct.action';
 import { useSearchParams } from 'react-router-dom';
 import Loader from './Loader';
 import {toast, Toaster} from 'react-hot-toast'
 import '../styles/getProduct.css'
-import { GetProductByIdAction } from '../redux/actions/getProductByIdActionr';
 import { useNavigate } from 'react-router-dom';
 
 const GetProduct = () => {
@@ -37,8 +36,6 @@ const GetProduct = () => {
             toast.error(error || error.message)
         }
     }
-
-    console.log(items);
 
     if (loading) {
         return (

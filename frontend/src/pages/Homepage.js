@@ -1,12 +1,12 @@
 import React from 'react'
-import Product from '../components/Product'
+import HeroSection from '../components/HeroSection'
 
 const Homepage = () => {
-  return (
-    <div>
-		<h2><Product></Product></h2>
-    </div>
-  )
+	return (
+		<div>
+			<HeroSection/>
+		</div>
+	)
 }
 
 export default Homepage

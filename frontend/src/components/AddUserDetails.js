@@ -3,7 +3,7 @@ import '../styles/userDetails.css';
 import { Toaster, toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from './Loader';
-import { addUserDetails } from '../redux/actions/userDetailsAction'
+import { addUserDetails } from '../redux/actions/userDetails.action'
 import { useNavigate } from 'react-router-dom';
 
 const AddUserDetails = () => {

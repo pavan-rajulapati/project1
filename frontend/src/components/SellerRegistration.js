@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {toast, Toaster} from 'react-hot-toast'
 import '../styles/SellerRegistration.css'
 import {useDispatch, useSelector} from 'react-redux'
-import { AddSellerDetails } from '../redux/actions/sellerRegistrationAction';
+import { AddSellerDetails } from '../redux/actions/sellerRegistration.action';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 

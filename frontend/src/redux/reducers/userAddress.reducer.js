@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addUserAddress } from '../actions/userAddressAction';
+import { addUserAddress } from '../actions/userAddress.action';
 
 const userAddressSlice = createSlice({
   name: 'userAddress',

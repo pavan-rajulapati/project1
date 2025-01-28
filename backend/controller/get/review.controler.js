@@ -3,7 +3,7 @@ const redisClient = require('../../middlewares/redis');
 const mongoose = require('mongoose');
 
 const handleReview = async (req, res) => {
-    const { productId } = req.body;
+    const { productId } = req.query; 
 
     if (!productId) {
         return res.status(400).json({ message: 'Request data loss: productId is required' });
@@ -25,7 +25,9 @@ const handleReview = async (req, res) => {
             }
         }
 
-        const collectionData = await Review.find({ productId });
+        const collectionData = await Review.find({ productId })
+        .populate('productId')
+        .sort({ createdAt: -1 });
 
         if (!collectionData || collectionData.length === 0) {
             return res.status(204).json({ message: 'No data available' });
@@ -38,5 +40,6 @@ const handleReview = async (req, res) => {
         return res.status(500).json({ message: 'Internal Error', error: error.message });
     }
 };
+
 
 module.exports = handleReview;

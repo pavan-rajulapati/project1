@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import '../styles/addProduct.css';
 import { IoMdInformationCircle } from "react-icons/io";  
 import { Toaster, toast } from 'react-hot-toast';
-import { addProduct } from '../redux/actions/productAction';
+import { addProduct } from '../redux/actions/product.action';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoCloudUploadSharp } from "react-icons/io5";
 import Loader from './Loader';

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AddSellerDetails } from '../actions/sellerRegistrationAction';
+import { AddSellerDetails } from '../actions/sellerRegistration.action';
 
 const AddSellerReducer = createSlice({
   name: 'addSeller',

@@ -1,15 +1,18 @@
-import React , {useState}from 'react'
+import React , {useEffect, useState}from 'react'
 import { MdOutlineLogin } from "react-icons/md";  
 import { FaCartArrowDown, FaUser, FaHome, FaSearch } from "react-icons/fa";
 import '../styles/navbar.css'
 import {Link} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const Navbar = () => {
 
 	const [query, setQuery] = useState('');
     const navigate = useNavigate();
+	const isLoggedIn = useSelector((state) => state.tokenValidation);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +20,7 @@ const Navbar = () => {
             navigate(`/product/search?query=${query.trim()}`);
         }
     };
+
 
   return (
     <div>
@@ -42,7 +46,7 @@ const Navbar = () => {
 							<Link to={'/signin'}>
 								<li>
 								<span><MdOutlineLogin /></span>
-								<p>Login</p>
+								<p>{isLoggedIn ? 'Logout' : 'Login'}</p>
 								</li>
 							</Link>
 							<Link to={'/'}>

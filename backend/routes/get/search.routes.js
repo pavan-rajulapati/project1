@@ -4,6 +4,6 @@ const verifyToken = require('../../middlewares/verifyToken');
 
 const routes = express.Router();
 
-routes.get('/product/search', verifyToken, GetSearchProduct);
+routes.get('/product/search', GetSearchProduct);
 
 module.exports = routes;

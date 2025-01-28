@@ -22,7 +22,7 @@ const handleLogin = async (req, res) => {
             return res.status(401).json({ message: 'You don\'t have an account' });
         }
 
-        console.log('Stored Password:', isExist.password); // Debugging
+        console.log('Stored Password:', isExist.password); 
 
         if (!isExist.password) {
             return res.status(500).json({ message: 'Password not stored in the database' });

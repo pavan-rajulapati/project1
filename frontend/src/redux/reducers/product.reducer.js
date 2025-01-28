@@ -1,4 +1,4 @@
-import { addProduct } from "../actions/productAction";
+import { addProduct } from "../actions/product.action";
 import { createSlice } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GetProductAction } from '../actions/getProductAction';
+import { GetProductAction } from '../actions/getProduct.action';
 
 const GetProductReducer = createSlice({
     name: 'searchProduct',

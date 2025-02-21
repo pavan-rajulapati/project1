@@ -1,29 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ReviewAction } from "../actions/review.action";
 
-const ReviewReducer = createSlice({
-    name : 'review',
-    initialState : {
-        loading : false,
-        data : [],
-        error : null
-    },
-    reducers : {},
-    extraReducers : (builder) => {
-        builder
-        .addCase(ReviewAction.pending, (state) => {
-            state.loading = true
-        })
-        .addCase(ReviewAction.fulfilled, (state, action) => {
-            state.data.push(action.payload)
-            console.log('Review Data', action.payload.data)
-            state.loading = false
-        })
-        .addCase(ReviewAction.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload.message
-        })
-    }
-})
+const reviewSlice = createSlice({
+	name: "review",
+	initialState: {
+		data: [],
+		loading: false,
+		error: null,
+	},
+	reducers: {},
+	extraReducers: (builder) => {
+		builder
+		.addCase(ReviewAction.pending, (state) => {
+			state.loading = true;
+		})
+		.addCase(ReviewAction.fulfilled, (state, action) => {
+			state.loading = false;
+			state.data = action.payload; 
+		})
+		.addCase(ReviewAction.rejected, (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		});
+	},
+});
 
-export default ReviewReducer.reducer
+export default reviewSlice.reducer;

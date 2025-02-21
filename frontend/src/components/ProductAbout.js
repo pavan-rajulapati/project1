@@ -19,7 +19,6 @@ const ProductAbout = () => {
 					</ul>
 				</nav>
 			</div>
-			<Review/>
         </div>
     </div>
   )

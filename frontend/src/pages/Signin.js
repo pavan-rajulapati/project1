@@ -50,7 +50,7 @@ const Signin = () => {
           withCredentials: true
         });
         if (response.status === 200) {
-          Cookies.set('authToken', response.data.authToken)
+          localStorage.setItem('authToken', response.data.authToken)
           navigate('/');
         }
       } catch (error) {

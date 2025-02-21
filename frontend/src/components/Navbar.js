@@ -1,17 +1,17 @@
-import React , {useEffect, useState}from 'react'
+import React , { useState }from 'react'
 import { MdOutlineLogin } from "react-icons/md";  
 import { FaCartArrowDown, FaUser, FaHome, FaSearch } from "react-icons/fa";
 import '../styles/navbar.css'
 import {Link} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { MdAdminPanelSettings } from "react-icons/md";
+
 
 
 const Navbar = () => {
-
 	const [query, setQuery] = useState('');
     const navigate = useNavigate();
-	const isLoggedIn = useSelector((state) => state.tokenValidation);
+	const isLoggedIn = localStorage.getItem('authToken')
 
 
     const handleSubmit = (e) => {
@@ -43,12 +43,21 @@ const Navbar = () => {
 					</div>
 					<div className='links'>
 						<ul>
-							<Link to={'/signin'}>
-								<li>
-								<span><MdOutlineLogin /></span>
-								<p>{isLoggedIn ? 'Logout' : 'Login'}</p>
+							{isLoggedIn ? (
+								<Link to={'/seller/homepage'}>
+									<li>
+									<span><MdAdminPanelSettings /></span>
+									<p>Seller</p>	
 								</li>
 							</Link>
+							) : (
+								<Link to={'/signin'}>
+									<li>
+									<span><MdOutlineLogin /></span>
+									<p>Login</p>
+									</li>
+								</Link>
+							)}
 							<Link to={'/'}>
 								<li >
 								<span><FaHome /></span>

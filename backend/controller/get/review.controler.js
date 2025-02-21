@@ -26,7 +26,7 @@ const handleReview = async (req, res) => {
         }
 
         const collectionData = await Review.find({ productId })
-        .populate('productId')
+        .populate('userId')
         .sort({ createdAt: -1 });
 
         if (!collectionData || collectionData.length === 0) {

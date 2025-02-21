@@ -35,6 +35,7 @@ const GoogleLogin = () => {
 	
 			if(response.status === 200){
 				navigate('/')
+				localStorage.setItem('authToken', response.data.authToken)
 			}
 		} catch (error) {
 			if (error.response) {

@@ -1,67 +1,54 @@
-import React, { useState } from 'react';
-import '../styles/review.css';
-import { FaStar } from 'react-icons/fa';
-import { RxCross2 } from "react-icons/rx"; 
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { ReviewAction } from "../redux/actions/review.action";
+import '../styles/review.css'
+import LocalTime from "../utils/LocalTime";
 
-const Review = () => {
-	const [rating, setRating] = useState(0); 
-	const [hover, setHover] = useState(null); 
-	const [review, setReview] = useState(''); 
+const Review = ({ productId }) => {
+    const dispatch = useDispatch();
+    const { loading, data, error } = useSelector((state) => state.review);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		if (rating === 0 || review.trim() === '') {
-		alert('Please provide a rating and a review.');
-		return;
-		}
+    useEffect(() => {
+        if (productId) {
+            dispatch(ReviewAction(productId));
+        }
+    }, [dispatch, productId]);
 
-		console.log('Review submitted:', { rating, review });
-		setRating(0); 
-		setReview(''); 
-	};
+    console.log("this is data", data);
 
-	return (
-		<div className="review">
-			<div className="container">
-				<span className='cancel'><RxCross2 /></span>
-				<div className="review-container">
-					<form onSubmit={handleSubmit}>
-						<div className="head-container">
-							<p>Give Your Feedback Here</p>
-						</div>
+    if (loading) return <p>Loading reviews...</p>;
+    if (error) return <p>Error: {error}</p>;
 
-						<div className="rating">
-							{[1, 2, 3, 4, 5].map((star) => (
-								<span
-								key={star}
-								className={`star ${star <= (hover || rating) ? 'filled' : ''}`}
-								onClick={() => setRating(star)} 
-								onMouseEnter={() => setHover(star)} 
-								onMouseLeave={() => setHover(null)} 
-								>
-								<FaStar />
-								</span>
-							))}
-						</div>
+    const reviews = data?.data || [];
 
-						<div className="textarea-container">
-							<textarea
-								placeholder="Write your opinion here..."
-								value={review}
-								onChange={(e) => setReview(e.target.value)}
-							/>
-						</div>
-
-						<div className="submit-container">
-							<button type="submit" className="submit-btn">
-								Submit Review
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	);
+    return (
+        <div className="review-section">
+            {reviews.length > 0 ? (
+                reviews.map((review) => (
+                    <div key={review._id} className="review">
+                        <div className="user-info">
+                            <img src={review.userId.profilePic} alt="hello" />
+                            <div className="comment-review">
+                                <div className="user-info">
+                                    <p><strong>{review.userId.userName}</strong></p>
+                                    <span><LocalTime dateAndTime={review.createdAt}></LocalTime></span>
+                                </div>
+                                <div className="review-rating">
+                                    <p>Review : {review.rating}</p>
+                                    <p>{review.comment}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <div className="empty">
+                    <img src="/photos/noData.jpg" alt="review" />
+                    <p>No reviews available on this product</p>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default Review;

@@ -36,7 +36,7 @@ const handleSignup = async (req, res) => {
         await redisClient.setEx(`user:${savedUser._id}`, 60 * 60, JSON.stringify(savedUser));
 
         setCookie(res, token, process.env.NODE_ENV === 'production');
-        return res.status(200).json({ message: 'Signup successful, token stored in cookies' });
+        return res.status(200).json({ message: 'Success', authToken : token });
     } catch (error) {
         return res.status(500).json({ message: 'Internal Error', error: error.message });
     }

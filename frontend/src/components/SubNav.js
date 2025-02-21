@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // To handle navigation
+import { useNavigate } from 'react-router-dom'; 
 import '../styles/subNav.css';
 import { useDispatch } from 'react-redux';
 import { GetProductByCategoryAction } from '../redux/actions/getProductByCategory.action';

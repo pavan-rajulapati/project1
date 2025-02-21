@@ -1,19 +1,15 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios'
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-export const ReviewAction = createAsyncThunk('/get/review', async (productId, { rejectWithValue }) => {
+export const ReviewAction = createAsyncThunk(
+  "review/fetchReviews",
+  async (productId, { rejectWithValue }) => {
     try {
-        const response = await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/review`,
-            { params: { productId },
-            withCredentials : true
-        }
-        );
-        console.log('this is data',response.data)
-        return response.data;
+      const response = await axios.get(`http://localhost:5000/review?productId=${productId}`,{withCredentials : true});
+      console.log(response)
+      return response.data; 
     } catch (error) {
-        return rejectWithValue(
-            error.response?.data.message || 'Failed to fetch Review'
-        );
+      return rejectWithValue(error.response.data);
     }
-});
+  }
+);

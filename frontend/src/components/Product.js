@@ -8,10 +8,14 @@ import { toast, Toaster } from 'react-hot-toast';
 import { MdFavoriteBorder } from "react-icons/md";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import ProductAbout from './ProductAbout';
+import Review from './Review';
+import { ReviewAction } from '../redux/actions/review.action';
 
 const Product = () => {
     const [mainImage, setMainImage] = useState('');
     const { loading, items } = useSelector((state) => state.getProductById);
+    const { data } = useSelector((state) => state.review);
+    const reviews = data?.data || [];
     const { id } = useParams();
     const dispatch = useDispatch();
 
@@ -19,19 +23,26 @@ const Product = () => {
         try {
             dispatch(GetProductByIdAction(id));
         } catch (error) {
-            toast.error(error || error.message);
+            toast.error(error?.message || "Failed to fetch product");
         } 
     }, [dispatch, id]);
 
-    if (loading) {
-        return <div>
-            <Loader />
-        </div>;
-    }
+    useEffect(() => {
+        if (id) {
+            dispatch(ReviewAction(id));
+            console.log(reviews)
+        }
+    }, [dispatch, id]);
 
-    if (!items) {
-        return <div>No product found</div>;
-    }
+    if (loading) return <Loader />;
+    if (!items) return <div>No product found</div>;
+
+    const calculateOverallRating = (reviews) => {
+        if (!Array.isArray(reviews) || reviews.length === 0) return 0;
+        const totalRating = reviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+        return (totalRating / reviews.length).toFixed(1);
+    };
+    
 
     return (
         <div className="Product-container">
@@ -44,7 +55,6 @@ const Product = () => {
                                     items.images.map((image, index) => (
                                         <div className="image-preview-item" key={index}>
                                             <img
-                                                key={index}
                                                 src={`${process.env.REACT_APP_BACKEND_URL}/${image}`} 
                                                 alt={`Preview ${index + 1}`}
                                                 className="preview-image"
@@ -57,72 +67,84 @@ const Product = () => {
                                 )}
                             </div>
                             <div className="main-image">
-                                <div className="main-image-item">
-                                    <img
-                                        src={mainImage 
-                                            ? `${process.env.REACT_APP_BACKEND_URL}/${mainImage}` 
-                                            : items.images && items.images[0] && `${process.env.REACT_APP_BACKEND_URL}/${items.images[0]}` 
-                                        }
-                                        alt="main-image"
-                                    />
-                                </div>
+                                <img
+                                    src={mainImage 
+                                        ? `${process.env.REACT_APP_BACKEND_URL}/${mainImage}` 
+                                        : items.images?.[0] 
+                                            ? `${process.env.REACT_APP_BACKEND_URL}/${items.images[0]}`
+                                            : "default-image-url.jpg"
+                                    }
+                                    alt="Main Product"
+                                />
                             </div>
                         </div>
+
                         <div className="information">
                             <div className='top-section'>
                                 <h1>{items.name}</h1>
                                 <span><MdFavoriteBorder /></span>
                             </div>
-                            <div className='brand'>
-                                <p>{items.brand}</p>
+
+                            <div className='rating'>
+                                {Array.isArray(reviews) && reviews.length > 0 ? (
+                                    <p>Overall Rating: {calculateOverallRating(reviews)} / 5 ⭐</p>
+                                ) : (
+                                    <p></p>
+                                )}
                             </div>
+
+                            <div className='brand'>
+                                <p>Brand: {items.brand}</p>
+                            </div>
+
                             <div className='description'>
                                 <p>{items.description}</p>
                             </div>
+
                             <div className='price'>
-                                <p>₹{items.offerPrice} <del>₹{items.actualPrice}</del></p>
+                                <p><del>₹{items.actualPrice}</del> ₹{items.offerPrice}</p>
                             </div>
+
                             <form>
                                 <div className="color-size">
                                     {items.colors?.length > 0 && (
                                         <div className="colors">
-                                        <span>Available Colors</span>
-                                        <div className="color-items-container">
-                                            {items.colors?.length > 0 && items.colors.map((color, index) => (
-                                                <div key={index} className="color-item">
-                                                    <div className="color" style={{ backgroundColor: color }}></div>
-                                                </div>
-                                            ))}
+                                            <span>Available Colors</span>
+                                            <div className="color-items-container">
+                                                {items.colors.map((color, index) => (
+                                                    <div key={index} className="color-item">
+                                                        <div className="color" style={{ backgroundColor: color }}></div>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
                                     )}
+                                    
                                     {items.sizes?.length > 0 && (
                                         <div className="sizes">
                                             <span>Available Sizes</span>
                                             <div className="size-items-container">
-                                                {items.sizes?.length > 0 && items.sizes.map((size, index) => (
+                                                {items.sizes.map((size, index) => (
                                                     <div key={index} className="size-item">
-                                                        <div className="size">
-                                                            {size}
-                                                        </div>
+                                                        <div className="size">{size}</div>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
                                     )}
                                 </div>
-                                <div>
-                                    {items.warranty > 0 && (
-                                        <div className='warranty'>
-                                            <p>Warranty: <span>{items.warranty} Years</span></p>
-                                        </div>
-                                    )}  
-                                </div>
+
+                                {items.warranty > 0 && (
+                                    <div className='warranty'>
+                                        <p>Warranty: <span>{items.warranty} Years</span></p>
+                                    </div>
+                                )}
+
                                 <div className='add-to-cart'>
                                     <div className='cart-section'>
                                         <div className='inc-dec'>
                                             <span><FaMinus /></span>
-                                            <p>8</p>
+                                            <p>1</p>
                                             <span><FaPlus /></span>
                                         </div>
                                         <div className='add-to-cart-button'>
@@ -134,7 +156,9 @@ const Product = () => {
                         </div>
                     </div>
                 </div>
-                {/* <ProductAbout /> */}
+
+                <ProductAbout productId={items._id} />
+                <Review productId={items._id} />
             </div>
             <Toaster />
         </div>

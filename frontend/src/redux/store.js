@@ -8,6 +8,9 @@ import GetProductByIdReducer from './reducers/getProductById.reducer';
 import UserDataReducer from './reducers/userData.reducer';
 import ReviewReducer from './reducers/review.reducer';
 import GetProductByCategoryReducer from './reducers/getProductByCategory.reducer';
+import AddReviewReducer from './reducers/addReview.reducer'
+import AddCartItemReducer from './reducers/addCartItem.reducer'
+import GetCartItemReducer from './reducers/getCartItem.reducer'
 
 
 
@@ -22,6 +25,9 @@ const store = configureStore({
 		userData : UserDataReducer,
 		review : ReviewReducer,
 		category : GetProductByCategoryReducer,
+		addReview : AddReviewReducer,
+		addCartItem : AddCartItemReducer,
+		getCartItem : GetCartItemReducer
 	},
 });
 

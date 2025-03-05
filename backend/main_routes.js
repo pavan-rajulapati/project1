@@ -17,6 +17,8 @@ routes.use(require('./routes/post/cart.routes'))
 routes.use(require('./routes/post/order.routes'))
 routes.use(require('./routes/post/review.routes'))
 routes.use(require('./routes/post/wishlist.routes'))
+routes.use(require('./routes/post/checkoutSession.routes'))
+routes.use(require('./routes/post/webhook.routes'))
 
 // fetch API routes
 

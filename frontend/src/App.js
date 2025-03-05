@@ -15,15 +15,15 @@ import AddUserDetails from './components/AddUserDetails'
 import GetProduct from './components/GetProduct';
 import Product from './components/Product';
 import Review from './components/Review'
-import SubNav from './components/SubNav';
 import CategoryPage from './components/CategoryProduct';
+import PaymentSuccess from './components/PaymentSuccess';
+import PaymentFailure from './components/PaymentFailure';
 
 const App = () => {
   return (
     <Provider store={Store}> 
 		<BrowserRouter>
 				<Navbar></Navbar> 
-				<SubNav></SubNav>
 				<Routes>
 					<Route path='/' element={<Homepage />} /> 
 					<Route path='/cart' element={<Cart />} />
@@ -38,6 +38,8 @@ const App = () => {
 					<Route path="/product/:id" element={<Product />} />
 					<Route path="/review" element={<Review />} />
 					<Route path="/category/:category" element={<CategoryPage />} />
+					<Route path="/payment/success" element={<PaymentSuccess />} />
+					<Route path="/payment/failure" element={<PaymentFailure />} />
 				</Routes>
 		</BrowserRouter>
     </Provider>

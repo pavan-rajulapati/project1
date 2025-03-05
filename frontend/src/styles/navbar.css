@@ -4,7 +4,7 @@
     align-content: center;
     position: sticky;
     top: 10px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    border-bottom: solid 1px #cacaca ;
 }
 
 .navBar .container{

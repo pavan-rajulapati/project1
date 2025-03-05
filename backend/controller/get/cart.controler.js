@@ -22,14 +22,26 @@ const handleCart = async (req, res) => {
             }
         }
 
-        const userData = await Cart.find({ userId });
+        const userData = await Cart.find({ userId }).populate('products.productId');
+
         if (!userData || userData.length === 0) {
             return res.status(404).json({ message: 'Cart is empty' });
         }
 
-        await redisClient.setEx(cacheKey, 60 * 60, JSON.stringify(userData));
+        const updatedUserData = userData.map(cart => {
+            const totalPrice = cart.products.reduce((acc, item) => {
+                const productTotal = item.productId.offerPrice * item.quantity; 
+                return acc + productTotal; 
+            }, 0);
 
-        return res.status(200).json({ message: 'success', userData });
+            cart.totalPrice = totalPrice; 
+
+            return cart;
+        });
+
+        await redisClient.setEx(cacheKey, 60 * 60, JSON.stringify(updatedUserData));
+
+        return res.status(200).json({ message: 'success', userData: updatedUserData });
     } catch (error) {
         return res.status(500).json({ message: 'Internal Error', error: error.message });
     }

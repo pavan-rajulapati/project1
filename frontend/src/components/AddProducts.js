@@ -294,7 +294,6 @@ const AddProducts = () => {
                                     </label>
                                 </div>
 
-                                {/* Conditionally render available sizes */}
                                 
 
                                 {/* Color selection */}

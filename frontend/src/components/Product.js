@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/subProduct.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { GetProductByIdAction } from '../redux/actions/getProductById.action';
 import Loader from './Loader';
 import { toast, Toaster } from 'react-hot-toast';
@@ -10,6 +10,8 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import ProductAbout from './ProductAbout';
 import Review from './Review';
 import { ReviewAction } from '../redux/actions/review.action';
+import { AddCartItemAction } from '../redux/actions/addCartItem.action';
+import { IoBagAdd } from "react-icons/io5";
 
 const Product = () => {
     const [mainImage, setMainImage] = useState('');
@@ -18,31 +20,95 @@ const Product = () => {
     const reviews = data?.data || [];
     const { id } = useParams();
     const dispatch = useDispatch();
+    const [quantity, setQuantity] = useState(1);
+    const [cartData, setCartData] = useState({
+        productId: '',
+        quantity: 0,
+        sizes: [],
+        colors: []
+    });
+    const navigate = useNavigate()
+
+    const { loading: cartItemLoading, data: cartDataState, error: cartItemError, status: cartItemStatus } = useSelector((state) => state.addCartItem);
 
     useEffect(() => {
         try {
             dispatch(GetProductByIdAction(id));
         } catch (error) {
             toast.error(error?.message || "Failed to fetch product");
-        } 
+        }
     }, [dispatch, id]);
 
     useEffect(() => {
         if (id) {
             dispatch(ReviewAction(id));
-            console.log(reviews)
         }
     }, [dispatch, id]);
 
     if (loading) return <Loader />;
     if (!items) return <div>No product found</div>;
 
+    const increaseQuantity = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    const decreaseQuantity = () => {
+        if (quantity !== 1) {
+            setQuantity(prevQuantity => prevQuantity - 1);
+        }
+    };
+
     const calculateOverallRating = (reviews) => {
         if (!Array.isArray(reviews) || reviews.length === 0) return 0;
         const totalRating = reviews.reduce((sum, review) => sum + (review.rating || 0), 0);
         return (totalRating / reviews.length).toFixed(1);
     };
-    
+
+    const handleColorSelection = (color) => {
+        setCartData((prevData) => ({
+            ...prevData,
+            colors: [color]  
+        }));
+    };
+
+    const handleSizeSelection = (size) => {
+        setCartData((prevData) => ({
+            ...prevData,
+            sizes : [size]
+        }));
+    };
+
+    const handleQuantityChange = (event) => {
+        const newQuantity = parseInt(event.target.value, 10); 
+        setCartData((prevData) => ({
+            ...prevData,
+            quantity: newQuantity,
+        }));
+    };
+
+    if(cartItemLoading) return (<Loader></Loader>);
+    if(cartItemError) return (toast.error(cartItemError));
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const updatedCartData = {
+            ...cartData,
+            productId: items._id,  
+            quantity: quantity,    
+        };
+        dispatch(AddCartItemAction(updatedCartData));
+        navigate('/cart')
+
+        setCartData({
+            productId: '',
+            quantity: 1,
+            sizes: [],
+            colors: [],
+        });
+
+        setCartData.quantity = 1;
+    };
 
     return (
         <div className="Product-container">
@@ -55,7 +121,7 @@ const Product = () => {
                                     items.images.map((image, index) => (
                                         <div className="image-preview-item" key={index}>
                                             <img
-                                                src={`${process.env.REACT_APP_BACKEND_URL}/${image}`} 
+                                                src={`${process.env.REACT_APP_BACKEND_URL}/${image}`}
                                                 alt={`Preview ${index + 1}`}
                                                 className="preview-image"
                                                 onClick={() => setMainImage(image)}
@@ -68,9 +134,9 @@ const Product = () => {
                             </div>
                             <div className="main-image">
                                 <img
-                                    src={mainImage 
-                                        ? `${process.env.REACT_APP_BACKEND_URL}/${mainImage}` 
-                                        : items.images?.[0] 
+                                    src={mainImage
+                                        ? `${process.env.REACT_APP_BACKEND_URL}/${mainImage}`
+                                        : items.images?.[0]
                                             ? `${process.env.REACT_APP_BACKEND_URL}/${items.images[0]}`
                                             : "default-image-url.jpg"
                                     }
@@ -89,7 +155,7 @@ const Product = () => {
                                 {Array.isArray(reviews) && reviews.length > 0 ? (
                                     <p>Overall Rating: {calculateOverallRating(reviews)} / 5 ⭐</p>
                                 ) : (
-                                    <p></p>
+                                    <p>No ratings available</p>
                                 )}
                             </div>
 
@@ -105,34 +171,39 @@ const Product = () => {
                                 <p><del>₹{items.actualPrice}</del> ₹{items.offerPrice}</p>
                             </div>
 
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="color-size">
-                                    {items.colors?.length > 0 && (
+                                    {Array.isArray(items.colors) && items.colors.some(color => color && color.trim() !== '') && (
                                         <div className="colors">
                                             <span>Available Colors</span>
                                             <div className="color-items-container">
                                                 {items.colors.map((color, index) => (
-                                                    <div key={index} className="color-item">
-                                                        <div className="color" style={{ backgroundColor: color }}></div>
-                                                    </div>
+                                                <div key={index} className="color-item">
+                                                    <div
+                                                    className={cartData.colors.includes(color) ? 'selected-color' : 'color'}
+                                                    style={{ backgroundColor: color }}
+                                                    onClick={() => handleColorSelection(color)}
+                                                    ></div>
+                                                </div>
                                                 ))}
                                             </div>
                                         </div>
                                     )}
-                                    
-                                    {items.sizes?.length > 0 && (
+
+                                    {Array.isArray(items.colors) && items.sizes.some(size => size && size.trim() !== '') && (
                                         <div className="sizes">
                                             <span>Available Sizes</span>
                                             <div className="size-items-container">
                                                 {items.sizes.map((size, index) => (
-                                                    <div key={index} className="size-item">
-                                                        <div className="size">{size}</div>
-                                                    </div>
+                                                <div key={index} className={cartData.sizes.includes(size) ? 'selected-size' : 'size'}>
+                                                    <div onClick={() => handleSizeSelection(size)}>{size}</div>
+                                                </div>
                                                 ))}
                                             </div>
                                         </div>
                                     )}
                                 </div>
+
 
                                 {items.warranty > 0 && (
                                     <div className='warranty'>
@@ -143,12 +214,12 @@ const Product = () => {
                                 <div className='add-to-cart'>
                                     <div className='cart-section'>
                                         <div className='inc-dec'>
-                                            <span><FaMinus /></span>
-                                            <p>1</p>
-                                            <span><FaPlus /></span>
+                                            <span onClick={decreaseQuantity}><FaMinus /></span>
+                                            <p>{quantity}</p>
+                                            <span onClick={increaseQuantity}><FaPlus /></span>
                                         </div>
                                         <div className='add-to-cart-button'>
-                                            <button type='submit'>Add to cart</button>
+                                            <button type='submit'><IoBagAdd />Add to cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +227,6 @@ const Product = () => {
                         </div>
                     </div>
                 </div>
-
                 <ProductAbout productId={items._id} />
                 <Review productId={items._id} />
             </div>

@@ -18,6 +18,7 @@
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     padding: 10px;
     border-radius: 6px;
+    cursor: pointer;
 
     h3{
         color: green;
@@ -26,10 +27,11 @@
 
 .Get-Product .item .image-section {
     width: 200px; 
-    height: 100px; 
+    height: 250px; 
     overflow: hidden;
     position: relative;
     margin-bottom: 5px;
+    padding: 10px;
 
     img {
         width: 100%;

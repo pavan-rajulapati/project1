@@ -55,9 +55,7 @@ const GetProduct = () => {
                                 items.map((item) => (
                                     <div key={item._id} className='item' onClick={() => handleProductFetch(item._id)}>
                                         <div className="image-section">
-                                            {item.images.map((image, index) => (
-                                                <img key={index} src={`${process.env.REACT_APP_BACKEND_URL}/${image}`} alt={`Product ${index + 1}`} />
-                                            ))}
+                                            <img src={`${process.env.REACT_APP_BACKEND_URL}/${item.images[0]}`} alt={`Product ${item._id}`} />
                                         </div>
                                         <h3>$ : {item.offerPrice}</h3>
                                         <h4>{item.name}</h4>

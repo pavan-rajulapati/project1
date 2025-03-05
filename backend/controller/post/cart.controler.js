@@ -4,7 +4,7 @@ const redisClient = require('../../middlewares/redis');
 
 const handleCart = async (req, res) => {
     try {
-        const { productId, quantity } = req.body;
+        const { productId, quantity, sizes, colors } = req.body;
 
         if (!productId || !quantity) {
             return res.status(400).json({ message: 'Product ID and quantity are required' });
@@ -27,7 +27,7 @@ const handleCart = async (req, res) => {
         if (index > -1) {
             cart.products[index].quantity += Number(quantity);
         } else {
-            cart.products.push({ productId, quantity: Number(quantity) });
+            cart.products.push({ productId, quantity: Number(quantity), sizes, colors });
         }
 
         await cart.save();

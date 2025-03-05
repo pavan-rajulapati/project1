@@ -1,6 +1,7 @@
 .Product-container{
     width: 100%;
     height: 100vh;
+    margin-top: 10px;
 }
 
 .Product-container .container{
@@ -142,7 +143,7 @@
     margin-top: 10px;
 
     p{
-        font-size: 18px;
+        font-size: 17px;
     }
 }
 
@@ -153,11 +154,11 @@
     margin-top: 10px;
 
     p:last-child{
-        font-size: 24px;
+        font-size: 23px;
     }
 
     del{
-        font-size: 20px;
+        font-size: 18px;
         color: #606060;
         margin-right: 10px;
     }
@@ -188,10 +189,19 @@
 
 .Product-container .information .color-size .colors .color {
     width: 23px;
-    height: 22px;
+    height: 23px;
     border-radius: 50%;
     border: 1px solid #ccc;
     cursor: pointer;
+}
+
+.Product-container .information .color-size .selected-color{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    cursor: pointer;
+    padding: 13px;
 }
 
 .Product-container .information .color-size .sizes {
@@ -213,10 +223,18 @@
 }
 
 .Product-container .information .color-size .sizes .size {
-    border: 1px solid #ccc;
+    border: solid 1px #000000;
     cursor: pointer;
     padding: 4px 6px;
     border-radius: 2px;
+}
+
+.Product-container .information .color-size .selected-size{
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 2px;
+    background-color: #333;
+    color: whitesmoke;
 }
 
 .Product-container .information .warranty{
@@ -232,18 +250,19 @@
     }
 }
 
+/* <------------------------- Cart section styles ----------------> */
+
 .Product-container .information .add-to-cart{
     margin-top: 30px;
     width: fit-content;
     display: flex;
     align-items: center;
     border: solid 1px #d3d3d3;
-    padding: 4px;
+    padding: 2px;
     border-radius: 4px;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
 
-.cart-section{
+.Product-container .cart-section{
     width: 100%;
     display: flex;
     
@@ -251,16 +270,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 4px 6px;
         border-radius: 4px;
 
         span{
-            margin: 0px 15px;
+            margin: 0px 10px;
             cursor: pointer;
         }
 
         p{
             font-size: 20px;
+            border-right: solid 1px #ababab;
+            border-left: solid 1px #ababab;
+            padding: 0px 12px;
         }
     }
 
@@ -274,8 +295,13 @@
             color: whitesmoke;
             border-radius: 4px;
             cursor: pointer;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             transition: 0.3s;
+            display: flex;
+
+            svg{
+                margin-right: 8px;
+            }
         }
 
         button:hover{
@@ -283,3 +309,5 @@
         }
     }
 }
+
+

@@ -12,13 +12,12 @@ import { ReviewAction } from '../redux/actions/review.action';
 const ReviewForm = ({ handleShowForm, productId }) => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
-    const { loading, data, error, status } = useSelector((state) => state.addReview);
+    const { loading, error, status } = useSelector((state) => state.addReview);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (error) {
             toast.error(error);
-            console.log('Error:', error);
         }
         if (status === 'success') {
             toast.success('Review added successfully');
@@ -27,6 +26,14 @@ const ReviewForm = ({ handleShowForm, productId }) => {
         }
     }, [error, status]);
 
+    useEffect(() => {
+        // Stop scrolling when modal is open
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, []);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (rating === 0 || !comment) {
@@ -34,21 +41,26 @@ const ReviewForm = ({ handleShowForm, productId }) => {
             return;
         }
         dispatch(resetState());
-        dispatch(AddReviewAction( { rating, comment, productId } ));
-        dispatch(ReviewAction(productId))
-        console.log(data)
+        dispatch(AddReviewAction({ rating, comment, productId }));
+        dispatch(ReviewAction(productId));
     };
 
     return (
         <div className="review-form-section">
             <div className="review-container">
-                <div className="review-section">
-                    <div className="cancel">
-                        <span onClick={() => handleShowForm()}><GiCrossMark /></span>
+                <div className="image-section">
+                    <img src="https://res.cloudinary.com/dxrfohx12/image/upload/v1742147238/6604_vpcybh.jpg" alt="Review" />
+                </div>
+
+                <div className="form">
+                    <div className="cancel" onClick={handleShowForm}>
+                        <GiCrossMark />
                     </div>
+
                     <div className="top-section">
                         <p>How are you feeling?</p>
                     </div>
+
                     {loading ? (
                         <Loader />
                     ) : (

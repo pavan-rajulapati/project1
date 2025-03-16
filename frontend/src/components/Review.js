@@ -5,6 +5,7 @@ import '../styles/review.css'
 import LocalTime from "../utils/LocalTime";
 import { FaArrowRight } from "react-icons/fa";
 import ReviewForm from "./ReviewForm";
+import StarRating from "../middleware/StarRating";
 
 
 const Review = ({ productId }) => {
@@ -41,11 +42,15 @@ const Review = ({ productId }) => {
                             <div className="comment-review">
                                 <div className="user-info">
                                     <p><strong>{review.userId.userName}</strong></p>
-                                    <span><LocalTime dateAndTime={review.createdAt}></LocalTime></span>
+                                    <span className="date"><LocalTime dateAndTime={review.createdAt}></LocalTime></span>
                                 </div>
                                 <div className="review-rating">
-                                    <p>Review : {review.rating}</p>
-                                    <p>{review.comment}</p>
+                                    <div className="rating">
+                                        <p><StarRating rating = {review.rating}/></p>
+                                    </div>
+                                    <div className="review">
+                                        <p>{review.comment}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +59,7 @@ const Review = ({ productId }) => {
                 
             ) : (
                 <div className="empty">
-                    <img src="/photos/noData.jpg" alt="review" />
+                    <img src="https://res.cloudinary.com/dxrfohx12/image/upload/v1742103070/noData_ezcshk.jpg" alt="review" />
                     <p>No reviews available on this product</p>
                 </div>
             )}

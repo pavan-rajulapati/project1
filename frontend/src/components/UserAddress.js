@@ -102,7 +102,8 @@ const UserAddress = () => {
 			<div className="userAddress">
 				<div className="container">
 					<div className="imageSection">
-						<img src="/photos/delivery.jpg" loading="lazy" alt="Delivery" />
+						<h1>Share your delivery address with us</h1>
+						<img src="https://res.cloudinary.com/dxrfohx12/image/upload/v1742102924/delivery_ttw7gs.jpg" alt="Delivery" />
 					</div>
 					<form onSubmit={handleSubmit}>
 						{loading && <Loader />}

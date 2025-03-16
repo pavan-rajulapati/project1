@@ -18,7 +18,7 @@ const handleCategory = async (req, res) => {
         const collectionData = await Product.find({ category }).lean();
 
         if (!collectionData || collectionData.length === 0) {
-            return res.status(404).json({ message: 'No products found for this category' });
+            return res.status(200).json({ message: 'No products found for this category' });
         }
 
         await Promise.all([

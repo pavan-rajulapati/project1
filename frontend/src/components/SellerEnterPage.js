@@ -16,11 +16,11 @@ const SellerEnterPage = () => {
 							Join us today and take your business to new heights! 🚀💼
 						</p>
 						<div className="btn">
-							<Link to={'#'}><button>Start your bussiness now</button></Link>
+							<Link to={'/seller/registration'}><button>Start your bussiness now</button></Link>
 						</div>
 					</div>
 					<div className="image-section">
-						<img src="photos\seller-homepage-img.png" alt="seller-image" width={400} />
+						<img src="/photos/seller-homepage-img.png" alt="seller-image" width={400} />
 					</div>
 				</div>
 			</div>

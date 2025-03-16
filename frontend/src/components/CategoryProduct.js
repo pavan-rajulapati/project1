@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetProductByCategoryAction } from '../redux/actions/getProductByCategory.action';
 import Loader from './Loader';
 import { resetCategoryState } from '../redux/reducers/getProductByCategory.reducer';
+import EmptyData from './EmptyData';
 
 const CategoryProduct = () => {
 	const { category } = useParams(); 
@@ -38,7 +39,7 @@ const CategoryProduct = () => {
 			<div className="category-section">
 				<div className="container">
 					{status === 'fulfilled' && items.length === 0 && (
-						<div>No products available in this category.</div>
+						<EmptyData/>
 					)}
 					{items.length > 0 && (
 						<div className="category-items">

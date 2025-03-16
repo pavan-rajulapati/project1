@@ -5,12 +5,14 @@ import {useDispatch, useSelector} from 'react-redux'
 import { AddSellerDetails } from '../redux/actions/sellerRegistration.action';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
+import { UserDataAction } from '../redux/actions/userData.action';
 
 
 const SellerRegistration = () => {
 
 	const dispatch = useDispatch()
 	const {loading, error} = useSelector((state) => state.addSeller)
+	const data = useSelector((state) => state.userData)
 	const navigate = useNavigate()
 	const [step, setStep] = useState(1); 
 	const totalSteps = 3
@@ -29,6 +31,12 @@ const SellerRegistration = () => {
 		accountNumber: '',
 		ifscCode: '',
 	});
+
+	useEffect(() => {
+		dispatch(UserDataAction())
+	}, [dispatch])
+
+	console.log('user data', data.data)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -116,7 +124,7 @@ const SellerRegistration = () => {
 				className="progress-bar"
 				style={{
 					width: `${(step / totalSteps) * 100}%`,
-					backgroundColor: '#0000ff',
+					backgroundColor: '#333',
 					height: '15px',
 				}}
 				/>

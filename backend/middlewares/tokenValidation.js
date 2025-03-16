@@ -15,16 +15,16 @@ const tokenValidation = (req, res, next) => {
             return res.status(401).json({ message: 'Invalid token', loggedIn: false });
         }
 
-        const now = Math.floor(Date.now() / 1000); // Current time in seconds
-        const timeLeft = user.exp - now; // Calculate remaining time
+        const now = Math.floor(Date.now() / 1000); 
+        const timeLeft = user.exp - now; 
 
-        req.user = user; // Attach decoded user to request
+        req.user = user; 
 
         return res.status(200).json({
             message: 'Valid token',
             loggedIn: true,
             user,
-            timeLeft // Send remaining expiration time in seconds
+            timeLeft 
         });
     });
 };

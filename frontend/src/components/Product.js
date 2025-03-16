@@ -12,6 +12,7 @@ import Review from './Review';
 import { ReviewAction } from '../redux/actions/review.action';
 import { AddCartItemAction } from '../redux/actions/addCartItem.action';
 import { IoBagAdd } from "react-icons/io5";
+import StarRating from '../middleware/StarRating';
 
 const Product = () => {
     const [mainImage, setMainImage] = useState('');
@@ -61,8 +62,9 @@ const Product = () => {
     const calculateOverallRating = (reviews) => {
         if (!Array.isArray(reviews) || reviews.length === 0) return 0;
         const totalRating = reviews.reduce((sum, review) => sum + (review.rating || 0), 0);
-        return (totalRating / reviews.length).toFixed(1);
+        return Math.round((totalRating / reviews.length).toFixed(1));
     };
+    
 
     const handleColorSelection = (color) => {
         setCartData((prevData) => ({
@@ -153,7 +155,11 @@ const Product = () => {
 
                             <div className='rating'>
                                 {Array.isArray(reviews) && reviews.length > 0 ? (
-                                    <p>Overall Rating: {calculateOverallRating(reviews)} / 5 ⭐</p>
+                                    <div className='rating'>
+                                        <StarRating rating={calculateOverallRating(reviews)}></StarRating>
+                                        <span className='total-reviews'>{reviews.length} customers reviewed this product</span>
+                                    </div>
+                                    
                                 ) : (
                                     <p>No ratings available</p>
                                 )}
@@ -175,14 +181,14 @@ const Product = () => {
                                 <div className="color-size">
                                     {Array.isArray(items.colors) && items.colors.some(color => color && color.trim() !== '') && (
                                         <div className="colors">
-                                            <span>Available Colors</span>
+                                            <span>Colors</span>
                                             <div className="color-items-container">
                                                 {items.colors.map((color, index) => (
                                                 <div key={index} className="color-item">
                                                     <div
-                                                    className={cartData.colors.includes(color) ? 'selected-color' : 'color'}
-                                                    style={{ backgroundColor: color }}
-                                                    onClick={() => handleColorSelection(color)}
+                                                        className={cartData.colors.includes(color) ? 'selected-color' : 'color'}
+                                                        style={{ backgroundColor: color }}
+                                                        onClick={() => handleColorSelection(color)}
                                                     ></div>
                                                 </div>
                                                 ))}
@@ -192,7 +198,7 @@ const Product = () => {
 
                                     {Array.isArray(items.colors) && items.sizes.some(size => size && size.trim() !== '') && (
                                         <div className="sizes">
-                                            <span>Available Sizes</span>
+                                            <span>Sizes</span>
                                             <div className="size-items-container">
                                                 {items.sizes.map((size, index) => (
                                                 <div key={index} className={cartData.sizes.includes(size) ? 'selected-size' : 'size'}>
@@ -214,9 +220,13 @@ const Product = () => {
                                 <div className='add-to-cart'>
                                     <div className='cart-section'>
                                         <div className='inc-dec'>
-                                            <span onClick={decreaseQuantity}><FaMinus /></span>
-                                            <p>{quantity}</p>
-                                            <span onClick={increaseQuantity}><FaPlus /></span>
+                                            <select name="" id="">
+                                                <option value="">1</option>
+                                                <option value="">2</option>
+                                                <option value="">3</option>
+                                                <option value="">4</option>
+                                                <option value="">5</option>
+                                            </select>
                                         </div>
                                         <div className='add-to-cart-button'>
                                             <button type='submit'><IoBagAdd />Add to cart</button>

@@ -9,6 +9,7 @@ const errorHandler = require('./middlewares/errorHandler')
 
 
 const app = express()
+app.use(require('./routes/post/webhook.routes'))
 app.use(bodyParser.json())
 app.use(cookies())
 dotEnv.config()

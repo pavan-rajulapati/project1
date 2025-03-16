@@ -1,4 +1,3 @@
-// getProductByCategory.reducer.js
 import { createSlice } from '@reduxjs/toolkit';
 import { GetProductByCategoryAction } from '../actions/getProductByCategory.action';
 

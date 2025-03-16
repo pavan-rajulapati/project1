@@ -4,7 +4,6 @@ const CheckoutSession = async (req, res) => {
     try {
         const { products } = req.body;
 
-        console.log('Received products:', products);
 
         if (!products || !Array.isArray(products) || products.length === 0) {
             return res.status(400).send('Invalid data format: Missing or malformed products');
@@ -41,7 +40,6 @@ const CheckoutSession = async (req, res) => {
             cancel_url: `${process.env.CLIENT_URL}/payment/failure`,
         });
 
-        console.log('Created Stripe session:', session);
 
         res.status(200).json({ id: session.id });
     } catch (error) {

@@ -17,7 +17,6 @@ const Seller = () => {
             <SellerSidenav setShowSection={setShowSection}/>
           </div>
           <div className='sections'>
-            {showSection === 'orders' && <SellerReg/>}
             {showSection === 'addProduct' && <AddProduct/>}
           </div>
         </div>

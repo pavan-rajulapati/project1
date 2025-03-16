@@ -1,8 +1,7 @@
 .review-form-section{
     width: 100%;
-    height: 100vh;
     padding: 20px;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     display: flex;

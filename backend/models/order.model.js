@@ -39,8 +39,8 @@ const orderSchema = new mongoose.Schema({
     },
     shippingAddress: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'UserAddress'
+        ref: 'UserAddress',  // ✅ Change to embedded object if needed
+        required: true
     },
     cancellationReason: {
         type: String,
@@ -48,11 +48,12 @@ const orderSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+// ✅ Optimized Indexing
 orderSchema.index({
+    userId: 1,
+    sellerId: 1,
     'products.productId': 1,
-    'products.quantity': 1,
-    totalAmount: 1,
-    userId : 1
+    totalAmount: 1
 });
 
 module.exports = mongoose.model('Order', orderSchema);

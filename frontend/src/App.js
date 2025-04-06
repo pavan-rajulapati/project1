@@ -33,6 +33,7 @@ const App = () => {
                     <Route path="/" element={<Homepage />} />
                     <Route path="/signin" element={<Signin />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/product/search" element={<GetProduct />} />
                     
                     {/* Protected Routes */}
                     <Route path="/cart" element={<ProtectedRoutes><Cart /></ProtectedRoutes>} />
@@ -41,7 +42,6 @@ const App = () => {
                     <Route path="/seller" element={<ProtectedRoutes><Seller /></ProtectedRoutes>} />
                     <Route path="/seller/homepage" element={<ProtectedRoutes><SellerEnterPage /></ProtectedRoutes>} />
                     <Route path="/user/details" element={<ProtectedRoutes><AddUserDetails /></ProtectedRoutes>} />
-                    <Route path="/product/search" element={<ProtectedRoutes><GetProduct /></ProtectedRoutes>} />
                     <Route path="/product/:id" element={<ProtectedRoutes><Product /></ProtectedRoutes>} />
                     <Route path="/review" element={<ProtectedRoutes><Review /></ProtectedRoutes>} />
                     <Route path="/category/:category" element={<ProtectedRoutes><CategoryPage /></ProtectedRoutes>} />

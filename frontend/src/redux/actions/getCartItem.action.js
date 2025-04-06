@@ -1,6 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
+console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+
+
 export const GetCartItemAction = createAsyncThunk('/getCartItem', async (category, {rejectWithValue}) => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-cart`,{

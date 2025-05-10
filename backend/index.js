@@ -57,5 +57,5 @@ app.use(require('./main_routes'))
 app.use(errorHandler)
 
 app.listen(port,()=>{
-    console.log(`Port running at ${port}`);
+    console.log(`Port running at ${port} 🔥`);
 })
